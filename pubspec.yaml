@@ -32,9 +32,16 @@ dependencies:
   dotenv: ^4.2.0
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.0
+  flutter_riverpod: ^2.5.1
+  gap: ^3.0.1
   http: ^1.2.1
   image_picker: ^1.1.0
+  jwt_decoder: ^2.0.1
   lottie: ^3.1.0
+  riverpod: ^2.5.1
+  shared_preferences: ^2.2.3
+  page_transition: ^2.1.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -48,8 +55,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
