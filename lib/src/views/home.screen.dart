@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/home/animated_searchBar.dart';
+import '../widgets/home/home_appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.token, required this.userData});
@@ -69,75 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
           width: width,
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
             child: Column(
               children: [
-                Container(
-                  height: height * 0.07,
-                  width: width,
-                  color: const Color.fromARGB(0, 143, 19, 19),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.shopping_bag,
-                                color: Colors.redAccent,
-                              ),
-                              Text(
-                                'Work',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontFamily: GoogleFonts.poppins().fontFamily,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            address,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 5.0),
-                            child: Icon(
-                              Icons.notifications,
-                              color: Colors.redAccent,
-                              size: 35,
-                            ),
-                          ),
-                          Gap(10),
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(
-                              'https://via.placeholder.com/150',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                HomeAppBar(height: height, width: width, address: address),
+                const Gap(10),
+                AnimatedTextSearchBar(),
               ],
             ),
           ),
