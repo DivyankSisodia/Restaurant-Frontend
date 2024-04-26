@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,33 +23,31 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
+   debugPrint('Token: ${(widget.userData)}');
+
     try {
       if (widget.token != null) {
         Map<String, dynamic> jwtDecodeToken = JwtDecoder.decode(widget.token!);
-        print('Decoded token: $jwtDecodeToken');
+        debugPrint('Decoded token: $jwtDecodeToken');
 
         // Set address from widget.userData
-        if (widget.userData != null && widget.userData['address'] != null) {
-          address = widget.userData['address'][0];
-        } else {
-          print('Address not found in userData');
-          address = 'Unknown';
-        }
+        address = widget.userData != null && widget.userData['address'] != null
+            ? widget.userData['address'][0] ?? 'Unknown'
+            : 'Unknown';
 
-        print('Address found: $address');
+        debugPrint('Address found: $address');
       } else {
-        print('Token is null');
+        debugPrint('Token is null');
         address = 'Unknown';
       }
     } catch (e) {
-      print('Error decoding token: $e');
+      debugPrint('Error decoding token: $e');
       address = 'Unknown';
     }
 
     // Store address using SharedPreferences
     storeAddress(address);
   }
-
 
   // Function to store address using SharedPreferences
   Future<void> storeAddress(String address) async {

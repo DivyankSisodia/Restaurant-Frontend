@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import flutter_riverpod
 import 'package:food_delivery/src/views/home.screen.dart';
@@ -12,13 +14,17 @@ class LoginController extends ChangeNotifier {
   TextEditingController passwordController = TextEditingController();
   late SharedPreferences pref;
 
+  LoginController() {
+    initSharedPref();
+  }
+  
   void initSharedPref() async {
     pref = await SharedPreferences.getInstance();
   }
 
   Future<void> loginUser(BuildContext context) async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      print('Email or password cannot be empty');
+      debugPrint('Email or password cannot be empty');
       return;
     }
 
@@ -27,10 +33,10 @@ class LoginController extends ChangeNotifier {
       "password": passwordController.text,
     };
 
-    print(resBody);
+    debugPrint('resBody $resBody');
 
     try {
-      print('Connecting...');
+      debugPrint('Connecting...');
       var response = await http.post(
         Uri.parse(
             'https://restaurants-backend-gnl2.onrender.com/api/v1/auth/login'),
@@ -40,32 +46,33 @@ class LoginController extends ChangeNotifier {
         },
       );
 
-      print('Response: ${response.body}');
+      debugPrint('Response: ${response.body}');
 
       if (response.statusCode == 200) {
         var jsonRes = jsonDecode(response.body);
 
         if (jsonRes['success'] != null && jsonRes['success'] == true) {
           var myToken = jsonRes['token'] ?? '';
-          print('Token: $myToken');
+          pref.setString('token', myToken);
+          debugPrint('Token: $myToken');
 
           // Navigate to HomeScreen with the token and user data
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeScreen(
-                  token: myToken, userData: jsonRes['user']),
+              builder: (context) =>
+                  HomeScreen(token: myToken, userData: jsonRes['user']),
             ),
           );
         } else {
           var errorMessage = jsonRes['message'] ?? 'Unknown error';
-          print('Login failed: $errorMessage');
+          debugPrint('Login failed: $errorMessage');
         }
       } else {
-        print('Failed to login, status code: ${response.statusCode}');
+        debugPrint('Failed to login, status code: ${response.statusCode}');
       }
     } catch (error) {
-      print('Error connecting: $error');
+      debugPrint('Error connecting: $error');
     }
   }
 }
