@@ -3,6 +3,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-   debugPrint('Token: ${(widget.userData)}');
+    debugPrint('Token: ${(widget.userData)}');
 
     try {
       if (widget.token != null) {
@@ -57,16 +59,88 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Address: $address'),
-          ],
+      extendBodyBehindAppBar: true,
+      body: SafeArea(
+        child: Container(
+          height: height,
+          width: width,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2),
+            child: Column(
+              children: [
+                Container(
+                  height: height * 0.07,
+                  width: width,
+                  color: const Color.fromARGB(0, 143, 19, 19),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.shopping_bag,
+                                color: Colors.redAccent,
+                              ),
+                              Text(
+                                'Work',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            address,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: GoogleFonts.poppins().fontFamily,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Icon(
+                              Icons.notifications,
+                              color: Colors.redAccent,
+                              size: 35,
+                            ),
+                          ),
+                          Gap(10),
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(
+                              'https://via.placeholder.com/150',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Token: $token');
+    // debugPrint('Token: $token');
     return MaterialApp(
       title: 'Your App',
       theme: ThemeData(
