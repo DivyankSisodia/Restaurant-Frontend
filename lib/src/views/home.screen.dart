@@ -5,8 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../widgets/common/heading_row.dart';
+import '../widgets/common/promo_discount_coupon_img.dart';
 import '../widgets/home/animated_searchBar.dart';
 import '../widgets/home/home_appbar.dart';
+import '../widgets/home/promo_banner_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.token, required this.userData});
@@ -69,12 +72,18 @@ class _HomeScreenState extends State<HomeScreen> {
           width: width,
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
                 HomeAppBar(height: height, width: width, address: address),
                 const Gap(10),
                 AnimatedTextSearchBar(),
+                const PromoBannerSlider(),
+                const HeadingRow(title: 'BEST OFFERS FOR YOU'),
+                const Gap(8),
+                PromoDiscountCoupons(height: height),
+                const Gap(8),
+                const HeadingRow(title: 'WHAT\'S ON YOUR MIND?'),
               ],
             ),
           ),
