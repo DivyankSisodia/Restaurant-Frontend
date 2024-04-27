@@ -30,12 +30,12 @@ environment:
 dependencies:
   cached_network_image: ^3.3.1
   carousel_slider: ^4.2.1
-  cupertino_icons: ^1.0.6
-  dotenv: ^4.2.0
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
+  flutter_dotenv: ^5.1.0
   flutter_riverpod: ^2.5.1
+  flutter_staggered_grid_view: ^0.7.0
   gap: ^3.0.1
   google_fonts: ^6.2.1
   http: ^1.2.1
@@ -60,6 +60,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/lottie/
     - assets/banner/
     - assets/promo/
