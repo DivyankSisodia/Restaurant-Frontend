@@ -31,12 +31,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Your App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
       home: (token != null && JwtDecoder.isExpired(token!) == false)
-          ? HomeScreen(token: token, userData: {
-              'address': [initialAddress]
-            })
+          ? HomeScreen(
+              token: token,
+              userData: {
+                'address': [initialAddress]
+              },
+            )
           : const LoginScreen(),
     );
   }
