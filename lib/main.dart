@@ -4,9 +4,11 @@ import 'package:food_delivery/src/views/login.screen.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'src/views/home.screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   SharedPreferences pref = await SharedPreferences.getInstance();
   String? token = pref.getString('token');
   String? address = pref.getString('user_address');

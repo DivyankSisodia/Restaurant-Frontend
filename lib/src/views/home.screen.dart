@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,20 +9,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/common/heading_row.dart';
 import '../widgets/common/promo_discount_coupon_img.dart';
 import '../widgets/home/animated_searchBar.dart';
+import '../widgets/home/category.dart';
 import '../widgets/home/home_appbar.dart';
 import '../widgets/home/promo_banner_slider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key, required this.token, required this.userData});
 
   final token;
   final userData;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   late String address;
 
   @override
@@ -84,6 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 PromoDiscountCoupons(height: height),
                 const Gap(8),
                 const HeadingRow(title: 'WHAT\'S ON YOUR MIND?'),
+                const Gap(12),
+                SizedBox(
+                  height: height * 0.25,
+                  child: const CategoryScreen(),
+                )
               ],
             ),
           ),

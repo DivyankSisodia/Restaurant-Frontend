@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import flutter_riverpod
 import 'package:food_delivery/src/views/home.screen.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +18,7 @@ class LoginController extends ChangeNotifier {
   LoginController() {
     initSharedPref();
   }
-  
+
   void initSharedPref() async {
     pref = await SharedPreferences.getInstance();
   }
@@ -35,11 +36,16 @@ class LoginController extends ChangeNotifier {
 
     debugPrint('resBody $resBody');
 
+    String Base_url = dotenv.env['API_BASE_URL'] ?? '';
+    String loginEndPoint = 'auth/login';
+
+    String finalEndPoint = Base_url + loginEndPoint;
+    debugPrint('finalEndPoint: $finalEndPoint');
+
     try {
       debugPrint('Connecting...');
       var response = await http.post(
-        Uri.parse(
-            'https://restaurants-backend-gnl2.onrender.com/api/v1/auth/login'),
+        Uri.parse(finalEndPoint),
         body: jsonEncode(resBody),
         headers: {
           'Content-Type': 'application/json',

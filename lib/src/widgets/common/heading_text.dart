@@ -11,7 +11,7 @@ class HeadingText extends StatelessWidget {
     return Text(
       title,
       style: TextStyle(
-        fontSize: 15.0,
+        fontSize: 14.0,
         fontFamily: GoogleFonts.dmSans().fontFamily,
         color: Colors.grey[700],
         fontWeight: FontWeight.w600,
