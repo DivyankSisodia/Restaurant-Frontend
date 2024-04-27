@@ -19,7 +19,9 @@ class HomeAppBar extends StatelessWidget {
     return Container(
       height: height * 0.07,
       width: width,
-      color: const Color.fromARGB(0, 143, 19, 19),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
