@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,14 +8,18 @@ import 'package:gap/gap.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../controller/restaurant.controller.dart';
+import '../widgets/home/view/display.restaurant.widget.dart';
 import '../widgets/common/heading_row.dart';
 import '../widgets/common/promo_discount_coupon_img.dart';
-import '../widgets/common/restaurant.grid.widget.dart';
-import '../widgets/home/animated_searchBar.dart';
+import '../widgets/home/widgets/animated_searchBar.dart';
 import '../widgets/common/category.dart';
-import '../widgets/home/home_appbar.dart';
-import '../widgets/home/promo_banner_slider.dart';
+import '../widgets/home/widgets/home_appbar.dart';
+import '../widgets/home/widgets/promo_banner_slider.dart';
+import '../widgets/home/view/banner.images.widget.dart';
+import '../widgets/home/view/custom.appbar.dart';
+import '../widgets/home/view/discount.coupons.dart';
+import '../widgets/home/view/foodcategory.widget.dart';
+import '../widgets/home/view/headings.title.widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({
@@ -80,133 +85,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: CustomScrollView(
           scrollBehavior: const CupertinoScrollBehavior(),
           slivers: [
-            SliverAppBar(
-              surfaceTintColor: Colors.transparent,
-              backgroundColor: Colors.white,
-              floating: true,
-              stretch: true,
-              expandedHeight: height * 0.139,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      HomeAppBar(
-                        height: height,
-                        width: width,
-                        address: address,
-                      ),
-                      const Gap(10),
-                      const AnimatedTextSearchBar(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: PromoBannerSlider(),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: [
-                    const HeadingRow(title: 'BEST OFFERS FOR YOU'),
-                    const Gap(8),
-                    PromoDiscountCoupons(height: height),
-                  ],
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: [
-                    Gap(8),
-                    HeadingRow(title: 'WHAT\'S ON YOUR MIND?'),
-                    Gap(12),
-                  ],
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: DecoratedBox(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: SizedBox(
-                  height: height * 0.25,
-                  child: const CategoryScreen(),
-                ),
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: [
-                    Gap(8),
-                    HeadingRow(title: 'ALL RESTAURANTS'),
-                    Gap(8),
-                  ],
-                ),
-              ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              sliver: Consumer(
-                builder: (context, ref, child) {
-                  final restaurantList = ref.watch(restaurantProvider);
+            // Address and search bar
+            CustomAppBar(height: height, width: width, address: address),
 
-                  // Calculate the child count based on the length of restaurantList
-                  final childCount = restaurantList.maybeWhen(
-                    data: (data) => data.length,
-                    orElse: () => 0, // Default to 0 if data is null or loading
-                  );
+            // Promo banner slider
+            const BannerImages(),
 
-                  return SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      mainAxisSpacing: 25.0,
-                      crossAxisSpacing: 16.0,
-                      mainAxisExtent: 300,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        // Check if index exceeds childCount, if so, return null
-                        if (index >= childCount) {
-                          return null;
-                        }
-                        // If data is available, build the RestaurantGridWidget
-                        return restaurantList.when(
-                          data: (data) => RestaurantGridWidget(
-                            image: data[index].imageUrl,
-                            title: data[index].title,
-                          ),
-                          error: (error, stack) => const Center(
-                            child: Text('Error'),
-                          ),
-                          loading: () => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      },
-                      childCount: childCount,
-                    ),
-                  );
-                },
-              ),
+            // Promo discount coupons
+            DiscountCoupons(height: height),
+
+            // Categories heading text
+            const HomeScreenHeadingsTitle(title: 'WHAT\'S ON YOUR MIND?'),
+
+            // Display food categories
+            DisplayFoodCategoryWidget(height: height),
+
+            // Restaurant heading text 
+            const HomeScreenHeadingsTitle(title: 'ALL RESTAURANTS'),
+
+            // display restaurants
+            const SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              sliver: DisplayRestaurantsWidget(),
             ),
           ],
         ),
@@ -214,3 +114,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 }
+
+
+

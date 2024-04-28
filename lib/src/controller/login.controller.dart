@@ -5,9 +5,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import flutter_riverpod
 import 'package:food_delivery/src/views/home.screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:page_transition/page_transition.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 final loginProvider = ChangeNotifierProvider((ref) => LoginController());
 
@@ -66,9 +66,13 @@ class LoginController extends ChangeNotifier {
           // Navigate to HomeScreen with the token and user data
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  HomeScreen(token: myToken, userData: jsonRes['user']),
+            PageTransition(
+              duration: const Duration(milliseconds: 1200),
+              type: PageTransitionType.leftToRightWithFade,
+              child: HomeScreen(
+                token: myToken,
+                userData: jsonRes['user'],
+              ),
             ),
           );
         } else {

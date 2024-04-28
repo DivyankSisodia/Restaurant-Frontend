@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,25 +25,28 @@ class CategoryScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               return SizedBox(
                 width: 130,
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 30,
-                      backgroundImage:
-                          CachedNetworkImageProvider(data[index].image),
-                    ),
-                    const Gap(5),
-                    Text(
-                      data[index].title,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey[700],
+                child: FadeInLeft(
+                  delay: Duration(milliseconds: 50 * index),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30,
+                        backgroundImage:
+                            CachedNetworkImageProvider(data[index].image),
                       ),
-                    ),
-                  ],
+                      const Gap(5),
+                      Text(
+                        data[index].title,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey[700],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

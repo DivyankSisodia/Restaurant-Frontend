@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/controller/restaurant.controller.dart';
 
-import '../common/restaurant.grid.widget.dart';
+import '../../common/restaurant.grid.widget.dart';
 
 class RestaurantScreen extends ConsumerWidget {
   const RestaurantScreen({super.key});
