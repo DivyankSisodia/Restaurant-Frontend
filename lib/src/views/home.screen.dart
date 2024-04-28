@@ -2,9 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_delivery/src/widgets/home/restaurant.dart';
 import 'package:gap/gap.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +17,11 @@ import '../widgets/home/home_appbar.dart';
 import '../widgets/home/promo_banner_slider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key, required this.token, required this.userData});
+  const HomeScreen({
+    super.key,
+    required this.token,
+    required this.userData,
+  });
 
   final token;
   final userData;
@@ -83,14 +85,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               backgroundColor: Colors.white,
               floating: true,
               stretch: true,
-              expandedHeight: height * 0.14,
+              expandedHeight: height * 0.139,
               flexibleSpace: FlexibleSpaceBar(
                 background: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     children: [
                       HomeAppBar(
-                          height: height, width: width, address: address),
+                        height: height,
+                        width: width,
+                        address: address,
+                      ),
                       const Gap(10),
                       const AnimatedTextSearchBar(),
                     ],
@@ -123,15 +128,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      Gap(8),
-                      HeadingRow(title: 'WHAT\'S ON YOUR MIND?'),
-                      Gap(12),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    Gap(8),
+                    HeadingRow(title: 'WHAT\'S ON YOUR MIND?'),
+                    Gap(12),
+                  ],
                 ),
               ),
             ),
@@ -151,15 +153,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      Gap(8),
-                      HeadingRow(title: 'ALL RESTAURANTS'),
-                      Gap(8),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    Gap(8),
+                    HeadingRow(title: 'ALL RESTAURANTS'),
+                    Gap(8),
+                  ],
                 ),
               ),
             ),
@@ -179,8 +178,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 1,
-                      mainAxisSpacing: 8.0,
-                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 25.0,
+                      crossAxisSpacing: 16.0,
+                      mainAxisExtent: 300,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
@@ -202,8 +202,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ),
                         );
                       },
-                      childCount:
-                          childCount, // Provide the calculated childCount
+                      childCount: childCount,
                     ),
                   );
                 },

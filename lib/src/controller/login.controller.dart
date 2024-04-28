@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 final loginProvider = ChangeNotifierProvider((ref) => LoginController());
 
 class LoginController extends ChangeNotifier {
@@ -36,10 +37,10 @@ class LoginController extends ChangeNotifier {
 
     debugPrint('resBody $resBody');
 
-    String Base_url = dotenv.env['API_BASE_URL'] ?? '';
+    String baseUrl = dotenv.env['API_BASE_URL'] ?? '';
     String loginEndPoint = 'auth/login';
 
-    String finalEndPoint = Base_url + loginEndPoint;
+    String finalEndPoint = baseUrl + loginEndPoint;
     debugPrint('finalEndPoint: $finalEndPoint');
 
     try {

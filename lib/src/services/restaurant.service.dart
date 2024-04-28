@@ -13,14 +13,14 @@ class RestaurantServices {
   Future<List<Restaurants>> getRestaurantDetails() async {
     String endpoint = 'restaurant/all';
 
+    debugPrint(baseUrl + endpoint);
     Response response = await http.get(Uri.parse(baseUrl + endpoint));
 
     if (response.statusCode == 200) {
       final List<dynamic> result = jsonDecode(response.body)['data'];
-      debugPrint('result: $result');
       return result.map((e) => Restaurants.fromMap(e)).toList();
     } else {
       throw Exception('Failed to load categories : ${response.reasonPhrase}');
     }
-  }  
+  }
 }
