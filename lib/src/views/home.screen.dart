@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,12 +8,6 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/home/view/display.restaurant.widget.dart';
-import '../widgets/common/heading_row.dart';
-import '../widgets/common/promo_discount_coupon_img.dart';
-import '../widgets/home/widgets/animated_searchBar.dart';
-import '../widgets/common/category.dart';
-import '../widgets/home/widgets/home_appbar.dart';
-import '../widgets/home/widgets/promo_banner_slider.dart';
 import '../widgets/home/view/banner.images.widget.dart';
 import '../widgets/home/view/custom.appbar.dart';
 import '../widgets/home/view/discount.coupons.dart';
@@ -100,7 +93,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             // Display food categories
             DisplayFoodCategoryWidget(height: height),
 
-            // Restaurant heading text 
+            // Restaurant heading text
             const HomeScreenHeadingsTitle(title: 'ALL RESTAURANTS'),
 
             // display restaurants
@@ -108,12 +101,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               sliver: DisplayRestaurantsWidget(),
             ),
+
+            const SliverToBoxAdapter(
+              child: Gap(20.0),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-
-

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../controller/restaurant.controller.dart';
+import '../../../views/food.screen.dart';
 import '../../common/restaurant.grid.widget.dart';
 
 class DisplayRestaurantsWidget extends StatelessWidget {
@@ -11,6 +13,7 @@ class DisplayRestaurantsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Consumer(
       builder: (context, ref, child) {
         final restaurantList = ref.watch(restaurantProvider);
@@ -22,11 +25,11 @@ class DisplayRestaurantsWidget extends StatelessWidget {
         );
 
         return SliverGrid(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1,
             mainAxisSpacing: 25.0,
             crossAxisSpacing: 16.0,
-            mainAxisExtent: 300,
+            mainAxisExtent: height * 0.32,
           ),
           delegate: SliverChildBuilderDelegate(
             (context, index) {
@@ -36,9 +39,24 @@ class DisplayRestaurantsWidget extends StatelessWidget {
               }
               // If data is available, build the RestaurantGridWidget
               return restaurantList.when(
-                data: (data) => RestaurantGridWidget(
-                  image: data[index].imageUrl,
-                  title: data[index].title,
+                data: (data) => GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: FoodScreenWidget(
+                          restaurant: data[index],
+                        ),
+                        duration: const Duration(milliseconds: 500),
+                      ),
+                    );
+                  },
+                  child: RestaurantGridWidget(
+                    image: data[index].imageUrl,
+                    title: data[index].title,
+                    rating: data[index].rating.toString(),
+                  ),
                 ),
                 error: (error, stack) => const Center(
                   child: Text('Error'),
