@@ -76,7 +76,7 @@ class RestaurantGridWidget extends StatelessWidget {
                 ),
                 Positioned(
                   right: 10,
-                  top: 10,
+                  top: 2,
                   child: Row(
                     children: [
                       IconButton(
@@ -163,32 +163,33 @@ class RestaurantGridWidget extends StatelessWidget {
                     flex: 3,
                     child: Center(
                       child: Container(
-                          height: 30,
-                          width: 55,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.green,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                rating,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontFamily: GoogleFonts.poppins().fontFamily,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const Icon(
-                                Icons.star,
+                        height: 30,
+                        width: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.green,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              rating,
+                              style: TextStyle(
+                                fontSize: 17,
                                 color: Colors.white,
-                                size: 15,
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontWeight: FontWeight.w600,
                               ),
-                            ],
-                          )),
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   )
                 ],

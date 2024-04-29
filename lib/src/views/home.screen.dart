@@ -11,7 +11,7 @@ import '../widgets/home/view/display.restaurant.widget.dart';
 import '../widgets/home/view/banner.images.widget.dart';
 import '../widgets/home/view/custom.appbar.dart';
 import '../widgets/home/view/discount.coupons.dart';
-import '../widgets/home/view/foodcategory.widget.dart';
+import '../widgets/home/view/foodCategory.widget.dart';
 import '../widgets/home/view/headings.title.widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -74,6 +74,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           scrollBehavior: const CupertinoScrollBehavior(),

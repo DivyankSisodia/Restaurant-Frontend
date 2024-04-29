@@ -61,7 +61,7 @@ class LoginController extends ChangeNotifier {
         if (jsonRes['success'] != null && jsonRes['success'] == true) {
           var myToken = jsonRes['token'] ?? '';
           pref.setString('token', myToken);
-          debugPrint('Token: $myToken');
+          debugPrint('TokenInfo: $myToken');
 
           // Navigate to HomeScreen with the token and user data
           Navigator.push(

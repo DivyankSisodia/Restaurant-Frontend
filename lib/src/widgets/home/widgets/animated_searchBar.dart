@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -58,7 +59,7 @@ class _AnimatedTextSearchBarState extends State<AnimatedTextSearchBar> {
           fontSize: 17.0,
           fontWeight: FontWeight.w500,
           fontFamily: GoogleFonts.poppins().fontFamily,
-          color: Colors.grey[500],
+          color: Colors.grey[700],
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
@@ -82,8 +83,8 @@ class _AnimatedTextSearchBarState extends State<AnimatedTextSearchBar> {
                 // Handle search icon press
               },
               icon: Icon(
-                Icons.search,
-                color: Colors.grey[600],
+                CupertinoIcons.search,
+                color: Colors.grey[800],
               ),
             ),
             Container(
@@ -96,7 +97,7 @@ class _AnimatedTextSearchBarState extends State<AnimatedTextSearchBar> {
                 // Handle mic icon press
               },
               icon: const Icon(
-                Icons.mic,
+                CupertinoIcons.mic_solid,
                 color: Colors.redAccent,
               ),
             ),

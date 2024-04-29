@@ -44,6 +44,8 @@ class DisplayRestaurantsWidget extends StatelessWidget {
                     Navigator.push(
                       context,
                       PageTransition(
+                        curve: Curves.easeInOut,
+                        reverseDuration: const Duration(milliseconds: 500),
                         type: PageTransitionType.bottomToTop,
                         child: FoodScreenWidget(
                           restaurant: data[index],
