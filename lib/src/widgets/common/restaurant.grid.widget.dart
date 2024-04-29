@@ -1,9 +1,12 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:food_delivery/src/widgets/common/dottedLine.widget.dart';
+import 'package:food_delivery/src/widgets/common/likeANDshare.widget.dart';
+import 'package:food_delivery/src/widgets/common/linearGradient.container.dart';
+
+import '../home/widgets/restaurant.discountText.widget.dart';
+import '../home/widgets/restaurant.image.widget.dart';
+import '../home/widgets/restaurant.texts.dart';
 
 class RestaurantGridWidget extends StatelessWidget {
   const RestaurantGridWidget(
@@ -39,208 +42,18 @@ class RestaurantGridWidget extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: height * 0.21,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    ),
-                    image: DecorationImage(
-                      image: CachedNetworkImageProvider(image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      backgroundBlendMode: BlendMode.darken,
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [
-                          Colors.black.withOpacity(0.1),
-                          Colors.black.withOpacity(0.1),
-                          Colors.black.withOpacity(0.2),
-                          Colors.black.withOpacity(0.3),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 2,
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.share,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                RestaurantImageWidget(height: height, image: image),
+                const LinearGradientContainerWidget(),
+                const LikeAndShareIconsWidget(),
               ],
             ),
-            Expanded(
-              flex: 9,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 21,
-                              color: Colors.black,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                '100% Pure Veg',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                  fontFamily: GoogleFonts.roboto().fontFamily,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const Gap(5),
-                              Text(
-                                '•',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                  fontFamily: GoogleFonts.roboto().fontFamily,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const Gap(5),
-                              Text(
-                                '200 for one',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                  fontFamily: GoogleFonts.roboto().fontFamily,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Center(
-                      child: Container(
-                        height: 30,
-                        width: 55,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.green,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              rating,
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.white,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const Icon(
-                              Icons.star,
-                              color: Colors.white,
-                              size: 15,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: DottedLine(
-                dashColor: Colors.grey,
-                dashGapLength: 5,
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.02,
-                      bottom: MediaQuery.of(context).size.width * 0.01,
-                    ),
-                    child: Image.asset(
-                      'assets/icons/discount-logo.png',
-                      color: Colors.blue,
-                      height: 30,
-                    ),
-                  ),
-                  const Gap(5),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.02,
-                      bottom: MediaQuery.of(context).size.width * 0.011,
-                    ),
-                    child: Text(
-                      '30% OFF on all orders',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: const Color.fromARGB(255, 7, 82, 143),
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            HomeScreenRestaurantTexts(title: title, rating: rating),
+            const DottedLineWidget(),
+            const RestaurantDiscountTextWidget(),
           ],
         ),
       ),
     );
   }
 }
+

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../model/restaurant.model.dart';
-import '../widgets/food/view/food.cards.dart'; // Import your Restaurants model here
+import '../widgets/common/dot.separator.widget.dart';
+import '../widgets/food/view/food.cards.dart';
+import '../widgets/restaurant/widget/deliveryText.widget.dart';
+import '../widgets/restaurant/widget/isAvailable.container.widget.dart';
+import '../widgets/restaurant/widget/pureVeg.logoAndText.dart';
+import '../widgets/restaurant/widget/restaurant.address.text.dart'; // Import your Restaurants model here
 
 class FoodScreenWidget extends StatelessWidget {
   final Restaurants restaurant;
@@ -109,28 +114,7 @@ class FoodScreenWidget extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/icons/vegetarian.png',
-                            height: 20,
-                            color: Colors.green[700],
-                          ),
-                          const Gap(2),
-                          Text(
-                            'Pure Veg',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.green[700],
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    const PureVegIconAndText(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Row(
@@ -158,38 +142,13 @@ class FoodScreenWidget extends StatelessWidget {
                                     size: 20,
                                   ),
                                   const Gap(2),
-                                  Text(
-                                    shortAddress,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black.withOpacity(0.9),
-                                      fontFamily:
-                                          GoogleFonts.poppins().fontFamily,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                  RestaurantSectionAddressText(
+                                      address: shortAddress),
                                   const Gap(2),
-                                  Text(
-                                    '•',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black.withOpacity(0.8),
-                                      fontFamily:
-                                          GoogleFonts.roboto().fontFamily,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  const DotSeparatorWidget(),
+                                  RestaurantSectionAddressText(
+                                    address: remainingAddress,
                                   ),
-                                  const Gap(2),
-                                  Text(
-                                    remainingAddress,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black.withOpacity(0.8),
-                                      fontFamily:
-                                          GoogleFonts.poppins().fontFamily,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  )
                                 ],
                               ),
                             ],
@@ -199,35 +158,35 @@ class FoodScreenWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                                  height: height * 0.04,
-                                  width: width * 0.13,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: Colors.green,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.star,
+                                height: height * 0.04,
+                                width: width * 0.13,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.green,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    const Gap(5),
+                                    Text(
+                                      restaurant.rating.toString(),
+                                      style: TextStyle(
+                                        fontSize: 16,
                                         color: Colors.white,
-                                        size: 20,
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      const Gap(5),
-                                      Text(
-                                        restaurant.rating.toString(),
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontFamily:
-                                              GoogleFonts.poppins().fontFamily,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               const Gap(5),
                               Text(
                                 '100 Reviews',
@@ -247,85 +206,20 @@ class FoodScreenWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(5.0),
                       child: Row(
                         children: [
-                          Text(
-                            'Delivery',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black.withOpacity(0.5),
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          const RestaurantSectionDeliveryText(
+                              title: 'Delivery'),
+                          const Gap(5),
+                          IsAvailableContainer(
+                            isOpen: restaurant.delivery,
                           ),
                           const Gap(5),
-                          Container(
-                            height: 15,
-                            width: 15,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: restaurant.delivery
-                                  ? Colors.green
-                                  : Colors.red,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Icon(
-                                restaurant.delivery ? Icons.check : Icons.close,
-                                color: Colors.white,
-                                size: 15,
-                              ),
-                            ),
-                          ),
+                          const DotSeparatorWidget(),
                           const Gap(5),
-                          Text(
-                            '•',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black.withOpacity(0.8),
-                              fontFamily: GoogleFonts.roboto().fontFamily,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          const RestaurantSectionDeliveryText(
+                              title: 'Pickup Orders'),
                           const Gap(5),
-                          Text(
-                            'PickUp Orders',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black.withOpacity(0.5),
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Gap(5),
-                          Container(
-                            height: 15,
-                            width: 15,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color:
-                                  restaurant.pickUp ? Colors.green : Colors.red,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  blurRadius: 1,
-                                  spreadRadius: 1,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ],
-                            ),
-                            child: Center(
-                              child: Icon(
-                                restaurant.pickUp ? Icons.check : Icons.close,
-                                color: Colors.white,
-                                size: 15,
-                              ),
-                            ),
+                          IsAvailableContainer(
+                            isOpen: restaurant.pickUp,
                           ),
                         ],
                       ),
@@ -388,15 +282,7 @@ class FoodScreenWidget extends StatelessWidget {
                             ),
                           ),
                           const Gap(5),
-                          Text(
-                            '•',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black.withOpacity(0.8),
-                              fontFamily: GoogleFonts.roboto().fontFamily,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          const DotSeparatorWidget(),
                           const Gap(5),
                           Text(
                             restaurant.time,
