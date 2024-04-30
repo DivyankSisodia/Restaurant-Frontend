@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../model/restaurant.model.dart';
 
 class IsAvailableContainer extends StatelessWidget {
   const IsAvailableContainer({

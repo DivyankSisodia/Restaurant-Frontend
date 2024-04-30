@@ -9,11 +9,12 @@ import '../home/widgets/restaurant.image.widget.dart';
 import '../home/widgets/restaurant.texts.dart';
 
 class RestaurantGridWidget extends StatelessWidget {
-  const RestaurantGridWidget(
-      {super.key,
-      required this.image,
-      required this.title,
-      required this.rating});
+  const RestaurantGridWidget({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.rating,
+  });
 
   final String image;
   final String title;
@@ -56,4 +57,3 @@ class RestaurantGridWidget extends StatelessWidget {
     );
   }
 }
-

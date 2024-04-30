@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../controller/restaurant.controller.dart';
-import '../../../views/food.screen.dart';
+import '../../../views/restaurant.screen.dart';
 import '../../common/restaurant.grid.widget.dart';
 
 class DisplayRestaurantsWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class DisplayRestaurantsWidget extends StatelessWidget {
             crossAxisCount: 1,
             mainAxisSpacing: 25.0,
             crossAxisSpacing: 16.0,
-            mainAxisExtent: height * 0.32,
+            mainAxisExtent: height * 0.33,
           ),
           delegate: SliverChildBuilderDelegate(
             (context, index) {
