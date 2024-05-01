@@ -1,15 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart' show immutable;
+import 'dart:convert';
 
 @immutable
 class Restaurants {
   final String id;
   final String title;
   final String imageUrl;
-  final List<dynamic> foods;
+  final List<Map<String, dynamic>> foods; // Change here
   final String time;
   final int rating;
   final bool pickUp;
@@ -50,7 +47,8 @@ class Restaurants {
       id: map['_id'] as String,
       title: map['title'] as String,
       imageUrl: map['imageUrl'] as String,
-      foods: List<dynamic>.from(map['foods']),
+      foods: List<Map<String, dynamic>>.from(
+          map['foods'] as List<dynamic>), // Change here
       time: map['time'] as String,
       rating: map['rating'] as int,
       pickUp: map['pickUp'] as bool,

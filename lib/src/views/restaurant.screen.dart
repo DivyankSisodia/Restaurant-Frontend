@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../model/restaurant.model.dart';
+import '../utils/helper/filterFood.dart';
+import '../utils/helper/splitAddress.dart';
 import '../widgets/restaurant/view/restaurant.coupons.dart';
 import '../widgets/restaurant/view/restaurant.details.container.dart';
+import '../widgets/restaurant/view/restaurant.foodList.dart';
 import '../widgets/restaurant/view/restaurant.headingText.dart';
-import '../widgets/restaurant/view/restaurant.searchBar.dart';
 // Import your Restaurants model here
 
-class FoodScreenWidget extends StatelessWidget {
+class FoodScreenWidget extends StatefulWidget {
   final Restaurants restaurant;
 
   const FoodScreenWidget({
@@ -16,38 +19,49 @@ class FoodScreenWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  State<FoodScreenWidget> createState() => _FoodScreenWidgetState();
+}
 
+class _FoodScreenWidgetState extends State<FoodScreenWidget> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Map<String, dynamic>> listOfFoods = [];
+
+  @override
+  void initState() {
+    super.initState();
+    listOfFoods = List.from(widget.restaurant.foods);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
+
+  void filterFoods(String keyword) {
+    setState(() {
+      listOfFoods = FoodFilter.filterFoods(widget.restaurant.foods, keyword);
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint('foodsList --------: $listOfFoods');
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    String shortAddress = '';
-    String remainingAddress = '';
-
-    void splitAddress() {
-      String address = restaurant.address;
-      List<String> addressParts = address.split(',');
-      if (addressParts.length >= 2) {
-        // Check if there are at least two parts
-        shortAddress = addressParts[0].trim();
-        remainingAddress = addressParts[1];
-        if (remainingAddress.isEmpty) {
-          remainingAddress = '20-30mins';
-        }
-      } else {
-        shortAddress = address;
-        remainingAddress = ''; // Set remainingAddress to an empty string
-      }
-    }
-
-    splitAddress();
+    String shortAddress =
+        AddressHelper.getShortAddress(widget.restaurant.address);
+    String remainingAddress =
+        AddressHelper.getRemainingAddress(widget.restaurant.address);
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           RestaurantDetailsHeaderContainer(
             height: height,
-            restaurant: restaurant,
+            restaurant: widget.restaurant,
             shortAddress: shortAddress,
             remainingAddress: remainingAddress,
             width: width,
@@ -57,59 +71,100 @@ class FoodScreenWidget extends StatelessWidget {
             width: width,
           ),
           const MenuHeadingText(),
-          RestaurantsFoodSearchBar(height: height),
-          SliverList.separated(
-            itemBuilder: (context, index) {
-              final food = restaurant.foods[index];
-              // debugPrint('Food for restaurant: $food');
-              // Check if the food is a map and contains the 'title' and 'price' fields
-              return Container(
-                height: 300,
-                width: double.infinity,
-                margin: const EdgeInsets.symmetric(
-                  // vertical: 8,
-                  horizontal: 16,
-                ),
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.grey[200],
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      food['image'] as String,
-                      width: double.infinity,
-                      height: 150,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      food['title'] as String,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Price: \$${food['price']}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[700],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const Gap(10),
-            itemCount: restaurant.foods.length,
-          ),
+          buildSearchBar(height),
+          RestaurantFoodList(listOfFoods: listOfFoods),
         ],
       ),
     );
   }
-}
 
+  SliverAppBar buildSearchBar(double height) {
+    final FocusNode focusNode = FocusNode();
+
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus) {
+        _searchController.clear();
+        filterFoods('');
+      }
+    });
+
+    // Ensure the focus node is initialized once
+    if (!focusNode.hasFocus) {
+      // Set the focus to the start of the text field
+      FocusScope.of(context).requestFocus(focusNode);
+    }
+
+    return SliverAppBar(
+      floating: true,
+      automaticallyImplyLeading: false,
+      expandedHeight: height * 0.08,
+      backgroundColor: Colors.transparent,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Container(
+          height: height * 0.08,
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: 10,
+          ),
+          color: Colors.transparent,
+          child: TextFormField(
+            focusNode: focusNode,
+            cursorColor: Colors.grey[400],
+            onChanged: (value) {
+              filterFoods(value);
+            },
+            controller: _searchController,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.grey.withOpacity(0.2),
+              hintText: 'Search for dishes...',
+              hintStyle: TextStyle(
+                color: Colors.grey[700],
+                fontFamily: GoogleFonts.poppins().fontFamily,
+              ),
+              border: InputBorder.none,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      filterFoods(_searchController.text);
+                    },
+                    icon: Icon(
+                      CupertinoIcons.search,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                  Container(
+                    height: 20,
+                    width: 2,
+                    color: Colors.grey[600],
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      // Handle mic icon press
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.mic_solid,
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
