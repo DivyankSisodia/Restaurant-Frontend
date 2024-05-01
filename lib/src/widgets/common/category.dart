@@ -25,7 +25,8 @@ class CategoryScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               return SizedBox(
                 width: 130,
-                child: FadeInLeft(
+                child: ZoomIn(
+                  duration: const Duration(milliseconds: 500),
                   delay: Duration(milliseconds: 50 * index),
                   child: Column(
                     children: [

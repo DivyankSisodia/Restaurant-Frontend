@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 
 import '../../../model/restaurant.model.dart';
 import '../../common/divider.widget.dart';
-import '../widget/pureVeg.logoAndText.dart';
+import 'pureVeg.logoAndText.dart';
 import 'deliveryANDPickup.widget.dart';
 import 'deliveryCharge.widget.dart';
 import 'restaurant.header.widgets.dart';

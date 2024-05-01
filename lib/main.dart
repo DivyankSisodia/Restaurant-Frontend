@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
                 'address': [initialAddress]
               },
             )
-          : const LoginScreen(),
+          : const LoginScreen()
     );
   }
 }

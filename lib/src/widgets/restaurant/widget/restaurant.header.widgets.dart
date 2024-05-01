@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/src/widgets/restaurant/view/restaurant.review.widget.dart';
+import 'package:food_delivery/src/widgets/restaurant/widget/restaurant.review.widget.dart';
 import 'package:gap/gap.dart';
 
 import '../../../model/restaurant.model.dart';
 import '../../common/dot.separator.widget.dart';
 import '../../common/restaurant.title.widget.dart';
-import '../widget/restaurant.address.text.dart';
+import 'restaurant.address.text.dart';
 
 class RestaurantDetailsHeaderWidget extends StatelessWidget {
   const RestaurantDetailsHeaderWidget({

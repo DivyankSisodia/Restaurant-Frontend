@@ -3,8 +3,8 @@ import 'package:gap/gap.dart';
 
 import '../../../model/restaurant.model.dart';
 import '../../common/dot.separator.widget.dart';
-import '../widget/deliveryText.widget.dart';
-import '../widget/isAvailable.container.widget.dart';
+import 'deliveryText.widget.dart';
+import 'isAvailable.container.widget.dart';
 
 class DeliveryAndPickupWidget extends StatelessWidget {
   const DeliveryAndPickupWidget({
