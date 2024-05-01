@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../model/restaurant.model.dart';
 import '../utils/helper/filterFood.dart';
 import '../utils/helper/splitAddress.dart';
+import '../widgets/common/heading_row.dart';
 import '../widgets/restaurant/view/restaurant.coupons.dart';
 import '../widgets/restaurant/view/restaurant.details.container.dart';
 import '../widgets/restaurant/view/restaurant.foodList.dart';
@@ -44,7 +45,6 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     debugPrint('foodsList --------: $listOfFoods');
@@ -72,6 +72,14 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
           ),
           const MenuHeadingText(),
           buildSearchBar(height),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 3.0, bottom: 25),
+              child: HeadingRow(
+                title: 'Popular Dishes',
+              ),
+            ),
+          ),
           RestaurantFoodList(listOfFoods: listOfFoods),
         ],
       ),
@@ -79,25 +87,9 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
   }
 
   SliverAppBar buildSearchBar(double height) {
-    final FocusNode focusNode = FocusNode();
-
-    focusNode.addListener(() {
-      if (!focusNode.hasFocus) {
-        _searchController.clear();
-        filterFoods('');
-      }
-    });
-
-    // Ensure the focus node is initialized once
-    if (!focusNode.hasFocus) {
-      // Set the focus to the start of the text field
-      FocusScope.of(context).requestFocus(focusNode);
-    }
-
     return SliverAppBar(
       floating: true,
       automaticallyImplyLeading: false,
-      expandedHeight: height * 0.08,
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
@@ -105,11 +97,9 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
           padding: const EdgeInsets.only(
             left: 16,
             right: 16,
-            bottom: 10,
           ),
           color: Colors.transparent,
           child: TextFormField(
-            focusNode: focusNode,
             cursorColor: Colors.grey[400],
             onChanged: (value) {
               filterFoods(value);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import '../widget/foodCard.widget.dart';
 
 class RestaurantFoodList extends StatelessWidget {
   const RestaurantFoodList({
@@ -11,53 +12,17 @@ class RestaurantFoodList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return SliverList.separated(
       itemBuilder: (context, index) {
         final food = listOfFoods[index];
         // Access the properties of each food map using the correct keys
-        return Container(
-          height: 300,
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(
-            // vertical: 8,
-            horizontal: 16,
-          ),
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.grey[200],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.network(
-                food['image'] as String, // Access 'image' property
-                width: double.infinity,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                food['title'] as String, // Access 'title' property
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Price: \$${food['price']}', // Access 'price' property
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[700],
-                ),
-              ),
-            ],
-          ),
-        );
+        return FoodCardWidget(height: height, width: width, food: food,);
       },
-      separatorBuilder: (context, index) => const Gap(10),
+      separatorBuilder: (context, index) => const Gap(2),
       itemCount: listOfFoods.length, // Use the length of listOfFoods
     );
   }
 }
+

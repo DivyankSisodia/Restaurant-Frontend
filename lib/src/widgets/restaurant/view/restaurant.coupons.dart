@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RestaurantDiscountCoupons extends StatelessWidget {
   const RestaurantDiscountCoupons({
@@ -44,7 +45,7 @@ class RestaurantDiscountCoupons extends StatelessWidget {
                   color: Colors.green[400],
                 ),
                 const Gap(10),
-                const Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -52,6 +53,7 @@ class RestaurantDiscountCoupons extends StatelessWidget {
                       '20% off up to ₹250',
                       style: TextStyle(
                         fontSize: 16,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -59,6 +61,7 @@ class RestaurantDiscountCoupons extends StatelessWidget {
                       'Use code: FIRST20',
                       style: TextStyle(
                         fontSize: 14,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
                         color: Colors.grey,
                       ),
                     ),
@@ -73,12 +76,13 @@ class RestaurantDiscountCoupons extends StatelessWidget {
                 color: Colors.green[400],
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Apply',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
