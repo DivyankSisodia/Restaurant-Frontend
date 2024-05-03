@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_delivery/src/views/login.screen.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:food_delivery/src/bottom_navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'src/views/home.screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
@@ -33,14 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: (token != null && JwtDecoder.isExpired(token!) == false)
-          ? HomeScreen(
-              token: token,
-              userData: {
-                'address': [initialAddress]
-              },
-            )
-          : const LoginScreen()
+      home: const CustomBottomNavBar()
     );
   }
 }

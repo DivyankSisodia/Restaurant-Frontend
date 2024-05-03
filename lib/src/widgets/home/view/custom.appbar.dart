@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget {
   final double height;
   final double width;
   final String address;
-
+  
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
