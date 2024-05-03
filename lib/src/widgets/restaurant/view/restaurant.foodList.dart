@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../widget/foodCard.widget.dart';
+import '../widget/restaurant.foodCard.widget.dart';
 
 class RestaurantFoodList extends StatelessWidget {
   const RestaurantFoodList({
@@ -17,12 +17,14 @@ class RestaurantFoodList extends StatelessWidget {
     return SliverList.separated(
       itemBuilder: (context, index) {
         final food = listOfFoods[index];
-        // Access the properties of each food map using the correct keys
-        return FoodCardWidget(height: height, width: width, food: food,);
+        return RestaurantsFoodCardWidget(
+          height: height,
+          width: width,
+          food: food,
+        );
       },
       separatorBuilder: (context, index) => const Gap(2),
-      itemCount: listOfFoods.length, // Use the length of listOfFoods
+      itemCount: listOfFoods.length,
     );
   }
 }
-

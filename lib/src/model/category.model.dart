@@ -15,6 +15,8 @@ class FoodCategory {
     required this.image,
   });
 
+  get price => null;
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       '_id' : id,

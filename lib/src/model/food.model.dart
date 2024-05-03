@@ -1,17 +1,16 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart' show immutable;
+import 'package:flutter/material.dart';
 
 @immutable
 class Foods {
   final String id;
   final String title;
   final String description;
-  final String price;
+  final double price;
   final String image;
-  final String rating;
-  final String ratingCount;
+  final double rating; // Changed type to double
+  final int ratingCount; // Changed type to int
 
   const Foods({
     required this.id,
@@ -23,9 +22,21 @@ class Foods {
     required this.ratingCount,
   });
 
+  factory Foods.fromMap(Map<String, dynamic> map) {
+    return Foods(
+      id: map['_id'] as String,
+      title: map['title'] as String,
+      description: map['description'] as String,
+      price: (map['price'] as num).toDouble(),
+      image: map['image'] as String,
+      rating: (map['rating'] as num).toDouble(), // Parse rating as double
+      ratingCount: map['ratingCount'] as int, // Parse ratingCount as int
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id, // Update to match MongoDB naming convention
       'title': title,
       'description': description,
       'price': price,
@@ -33,18 +44,6 @@ class Foods {
       'rating': rating,
       'ratingCount': ratingCount,
     };
-  }
-
-  factory Foods.fromMap(Map<String, dynamic> map) {
-    return Foods(
-      id: map['_id'] as String,
-      title: map['title'] as String,
-      description: map['description'] as String,
-      price: map['price'] as String,
-      image: map['image'] as String,
-      rating: map['rating'] as String,
-      ratingCount: map['ratingCount'] as String,
-    );
   }
 
   String toJson() => json.encode(toMap());

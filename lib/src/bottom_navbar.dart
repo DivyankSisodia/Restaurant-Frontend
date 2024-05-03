@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'views/foods.screen.dart';
 import 'views/home.screen.dart';
 import 'views/login.screen.dart';
 import 'views/profile.screen.dart';
@@ -47,9 +48,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         })
       else
         const LoginScreen(),
+      const FoodScreen(),
       const SearchScreen(),
       const ProfileScreen(),
-      const LoginScreen(),
     ];
   }
 
