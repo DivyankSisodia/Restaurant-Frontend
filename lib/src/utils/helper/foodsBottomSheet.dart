@@ -7,8 +7,8 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-class BottomSheetWidget extends StatelessWidget {
-  const BottomSheetWidget({
+class FoodsBottomSheetWidget extends StatelessWidget {
+  const FoodsBottomSheetWidget({
     super.key,
     required this.food,
   });

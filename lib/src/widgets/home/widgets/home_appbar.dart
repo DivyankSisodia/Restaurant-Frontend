@@ -1,21 +1,38 @@
+// home_app_bar.dart
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
     super.key,
     required this.height,
     required this.width,
-    required this.address,
   });
 
   final double height;
   final double width;
-  final String address;
 
   @override
   Widget build(BuildContext context) {
+    final box = Hive.box('user_info');
+    final dynamic userAddress = box.get('address');
+    final dynamic userProfilePic = box.get('profilePic');
+
+    debugPrint('User address: $userAddress',);
+    debugPrint('User profile pic: $userProfilePic');
+
+    String addressText = '';
+    if (userAddress != null) {
+      if (userAddress is List) {
+        addressText = userAddress.join(', ');
+      } else {
+        addressText = userAddress as String;
+      }
+    }
+
     return Container(
       height: height * 0.07,
       width: width,
@@ -50,7 +67,7 @@ class HomeAppBar extends StatelessWidget {
                 ],
               ),
               Text(
-                address,
+                addressText,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,
@@ -60,11 +77,11 @@ class HomeAppBar extends StatelessWidget {
               ),
             ],
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 5.0),
                 child: Icon(
                   Icons.notifications,
@@ -72,11 +89,12 @@ class HomeAppBar extends StatelessWidget {
                   size: 35,
                 ),
               ),
-              Gap(10),
+              const Gap(10),
               CircleAvatar(
-                radius: 20,
+                radius: 24,
                 backgroundImage: NetworkImage(
-                  'https://via.placeholder.com/150',
+                  userProfilePic ?? 'https://via.placeholder.com/150',
+                  scale: 0.2,
                 ),
               ),
             ],
