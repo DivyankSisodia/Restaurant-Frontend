@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/widgets/food/view/food.List.dart';
 
@@ -42,9 +43,12 @@ class DisplayFoodsWidget extends StatelessWidget {
             );
           },
           loading: () => const SliverToBoxAdapter(
-            child: Center(
+            child: SizedBox(
+              height: 500,
+              child: Center(
               child: CircularProgressIndicator(),
             ),
+            )
           ),
         );
       },

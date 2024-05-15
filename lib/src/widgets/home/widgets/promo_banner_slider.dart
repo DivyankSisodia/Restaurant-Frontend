@@ -19,19 +19,22 @@ class _PromoBannerSliderState extends State<PromoBannerSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      carouselController: _controller,
-      items: [
-        for (int i = 1; i <= 3; i++)
-          BannerContainer(
-            image: AssetImage('assets/banner/banner$i.jpg'),
-          ),
-      ],
-      options: CarouselOptions(
-        viewportFraction: 1,
-        autoPlay: true,
-        autoPlayInterval: const Duration(seconds: 3),
-        autoPlayCurve: Curves.fastOutSlowIn,
+    return SizedBox(
+      height: 180,
+      child: CarouselSlider(
+        carouselController: _controller,
+        items: [
+          for (int i = 1; i <= 3; i++)
+            BannerContainer(
+              image: AssetImage('assets/banner/banner$i.jpg'),
+            ),
+        ],
+        options: CarouselOptions(
+          viewportFraction: 1,
+          autoPlay: true,
+          autoPlayInterval: const Duration(seconds: 3),
+          autoPlayCurve: Curves.fastOutSlowIn,
+        ),
       ),
     );
   }

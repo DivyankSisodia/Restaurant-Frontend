@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 
 class AnimatedTextSearchBar extends StatefulWidget {
   const AnimatedTextSearchBar({super.key});
@@ -83,7 +84,7 @@ class _AnimatedTextSearchBarState extends State<AnimatedTextSearchBar> {
                 // Handle search icon press
               },
               icon: Icon(
-                CupertinoIcons.search,
+                Iconsax.search_favorite,
                 color: Colors.grey[800],
               ),
             ),

@@ -19,7 +19,7 @@ class MenuHeadingText extends StatelessWidget {
               angle: 3.14 * 2.4,
               child: Image.asset(
                 color: Colors.black87,
-                'assets/logo/pngwing.com (1).png',
+                'assets/logo/pngwing.png',
                 height: 30,
               ),
             ),
@@ -38,7 +38,7 @@ class MenuHeadingText extends StatelessWidget {
               angle: 4.4,
               alignment: Alignment.center,
               child: Image.asset(
-                'assets/logo/pngwing.com (1).png',
+                'assets/logo/pngwing.png',
                 height: 30,
               ),
             ),

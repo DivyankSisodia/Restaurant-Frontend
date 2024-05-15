@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../utils/helper/RestaurantFoodbottomSheet.dart';
+
 
 class RestaurantsFoodCardWidget extends StatelessWidget {
   const RestaurantsFoodCardWidget({
@@ -107,7 +109,7 @@ class RestaurantsFoodCardWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // bottomSheet(context);
+                    bottomSheet(context);
                   },
                   child: Container(
                     height: height * 0.19,
@@ -158,13 +160,13 @@ class RestaurantsFoodCardWidget extends StatelessWidget {
       ),
     );
   }
-  //  void bottomSheet(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return BottomSheetWidget(food: food);
-  //     },
-  //   );
-  // }
+   void bottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return BottomSheetWidget(food: food);
+      },
+    );
+  }
 }
 
