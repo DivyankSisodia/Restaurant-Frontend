@@ -9,14 +9,13 @@ class FoodScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController searchFoodController = TextEditingController();
     double height = MediaQuery.of(context).size.height;
-    print(height);
-    return Scaffold(
+    debugPrint('height: $height');
+    return const Scaffold(
       body: CustomScrollView(
         slivers: [
-          FoodSearchBar(searchFoodController: searchFoodController),
-          const SliverPadding(
+          FoodSearchBar(),
+          SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             sliver: DisplayFoodsWidget(),
           ),

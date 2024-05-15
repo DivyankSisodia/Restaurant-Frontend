@@ -3,29 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../utils/helper/filterFood.dart';
 
 class FoodSearchBar extends StatefulWidget {
   const FoodSearchBar({
     super.key,
-    required TextEditingController searchFoodController,
-  }) : _searchFoodController = searchFoodController;
-
-  final TextEditingController _searchFoodController;
+  });
 
   @override
   State<FoodSearchBar> createState() => _FoodSearchBarState();
 }
 
 class _FoodSearchBarState extends State<FoodSearchBar> {
-  List<Map<String, dynamic>> listOfFoods = [];
-
-  void filterFoods(String keyword) {
-    setState(() {
-      listOfFoods = FoodFilter.filterFoods(listOfFoods, keyword);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -50,10 +38,9 @@ class _FoodSearchBarState extends State<FoodSearchBar> {
             child: Center(
               child: TextFormField(
                 cursorColor: Colors.grey[400],
-                onChanged: (value) {
-                  filterFoods(value);
+                onTap: (){
+                  // Handle text field tap
                 },
-                controller: widget._searchFoodController,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
                   filled: true,

@@ -28,7 +28,7 @@ class FoodsBottomSheetWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 280,
+            height: 220,
             width: double.infinity,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -38,22 +38,25 @@ class FoodsBottomSheetWidget extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                Center(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    child: CachedNetworkImage(
-                      height: 280,
-                      imageUrl: food.image,
-                      fit: BoxFit.fill,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: CachedNetworkImage(
+                        height: 220,
+                        imageUrl: food.image,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
                 Positioned(
                   top: 10,
-                  right: 10,
+                  right: 0,
                   child: IconButton(
                     icon: const Icon(
                       Iconsax.close_circle,
@@ -101,6 +104,7 @@ class FoodsBottomSheetWidget extends StatelessWidget {
                               fontFamily: GoogleFonts.poppins().fontFamily,
                             ),
                           ),
+                          const Gap(5),
                           Row(
                             children: [
                               Icon(
@@ -116,6 +120,7 @@ class FoodsBottomSheetWidget extends StatelessWidget {
                                   fontFamily: GoogleFonts.poppins().fontFamily,
                                 ),
                               ),
+                              const Gap(4),
                               Text(
                                 '(${food.ratingCount})', // Access 'rating' property
                                 style: TextStyle(
@@ -128,10 +133,10 @@ class FoodsBottomSheetWidget extends StatelessWidget {
                           ),
                           const Gap(2),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: .0),
+                            padding: const EdgeInsets.symmetric(vertical: 3),
                             child: Text(
                               food.description,
-                              maxLines: 5,
+                              // maxLines: 5,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey[700],

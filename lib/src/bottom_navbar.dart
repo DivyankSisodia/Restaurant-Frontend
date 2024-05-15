@@ -2,13 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/views/foods.screen.dart';
 import 'package:food_delivery/src/views/sign.screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'views/foods.screen.dart';
 import 'views/home.screen.dart';
-import 'views/login.screen.dart';
 import 'views/profile.screen.dart';
 import 'views/search.screen.dart';
 
