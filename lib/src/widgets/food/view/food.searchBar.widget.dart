@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-
 class FoodSearchBar extends StatefulWidget {
   const FoodSearchBar({
     super.key,
+    this.controller,
+    this.onChanged,
+    this.onSearch,
   });
+
+  final TextEditingController? controller;
+  final void Function(String)? onChanged;
+  final VoidCallback? onSearch;
 
   @override
   State<FoodSearchBar> createState() => _FoodSearchBarState();
@@ -37,10 +43,10 @@ class _FoodSearchBarState extends State<FoodSearchBar> {
             color: Colors.white,
             child: Center(
               child: TextFormField(
+                controller: widget.controller,
                 cursorColor: Colors.grey[400],
-                onTap: (){
-                  // Handle text field tap
-                },
+                onChanged: widget.onChanged,
+                onTap: widget.onSearch,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
                   filled: true,
@@ -63,9 +69,7 @@ class _FoodSearchBarState extends State<FoodSearchBar> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {
-                          // filterFoods(_searchController.text);
-                        },
+                        onPressed: widget.onSearch,
                         icon: Icon(
                           Iconsax.search_favorite,
                           color: Colors.grey[800],
