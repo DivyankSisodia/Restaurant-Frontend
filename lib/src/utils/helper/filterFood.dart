@@ -2,7 +2,6 @@
 
 // ignore_for_file: file_names
 
-import 'package:food_delivery/src/model/food.model.dart';
 
 class FoodFilter {
   static List<Map<String, dynamic>> filterFoods(

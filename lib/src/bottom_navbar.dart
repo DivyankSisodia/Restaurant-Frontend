@@ -33,7 +33,6 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   void _initializeScreens() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _token = prefs.getString('token');
-    _address = prefs.getString('user_address');
 
     setState(() {
       if (_token != null && !JwtDecoder.isExpired(_token!)) {
@@ -42,7 +41,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             'address': [_address]
           }),
           const FoodScreen(),
-          const SearchScreen(),
+          const FoodSearchScreen(),
           const ProfileScreen(),
         ];
       } else {

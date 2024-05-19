@@ -28,12 +28,10 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   final String? token;
-  final String? initialAddress;
 
   const MyApp({
     super.key,
     required this.token,
-    this.initialAddress,
   });
 
   @override
@@ -41,12 +39,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void dispose() {
     Hive.close();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // debugPrint('Token: $token');
