@@ -1,110 +1,37 @@
-import 'dart:convert';
-import 'package:food_delivery/src/widgets/food/view/food.searchBar.widget.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../controller/search_food.controller.dart';
+import '../widgets/common/custom_loading_page.dart';
+
+import '../widgets/food/view/food.searchBar.widget.dart';
 import '../widgets/search/food_cards.dart';
 
-class FoodSearchScreen extends StatefulWidget {
+class FoodSearchScreen extends ConsumerWidget {
   const FoodSearchScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _FoodSearchScreenState createState() => _FoodSearchScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final foodController = ref.watch(foodControllerProvider);
 
-class _FoodSearchScreenState extends State<FoodSearchScreen> {
-  final TextEditingController _searchController = TextEditingController();
-  List<dynamic> _foodData = [];
-  List<dynamic> _filteredFoodData = [];
-  bool _isLoading = true;
-  String _error = '';
-
-  @override
-  void initState() {
-    super.initState();
-    fetchFoodData();
-  }
-
-  void fetchFoodData() async {
-    try {
-      final response = await http.get(Uri.parse(
-          'https://restaurants-backend-gnl2.onrender.com/api/v1/food/all'));
-
-      if (response.statusCode == 200) {
-        final responseBody = response.body;
-        if (responseBody.isNotEmpty) {
-          final decodedData = json.decode(responseBody);
-          if (decodedData.containsKey('data')) {
-            setState(() {
-              _foodData = decodedData['data'];
-              _isLoading = false;
-            });
-          } else {
-            throw Exception('Data key not found in the response');
-          }
-        } else {
-          throw Exception('Response body is empty');
-        }
-      } else {
-        throw Exception('Failed to load food data');
-      }
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-        _error = e.toString();
-      });
-    }
-  }
-
-  void searchFood(String query) {
-    if (_foodData.isNotEmpty) {
-      if (query.isEmpty) {
-        setState(() {
-          _filteredFoodData = [];
-        });
-      } else {
-        List<dynamic> filteredFood = _foodData.where((food) {
-          return (food['title'] ?? '')
-                  .toLowerCase()
-                  .contains(query.toLowerCase()) ||
-              (food['description'] ?? '')
-                  .toLowerCase()
-                  .contains(query.toLowerCase());
-        }).toList();
-
-        setState(() {
-          _filteredFoodData = filteredFood;
-        });
-      }
-    }
-  }
-
-  void _onSearch() {
-    searchFood(_searchController.text);
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           FoodSearchBar(
-            controller: _searchController,
-            onSearch: _onSearch,
-            onChanged: (value) {
-              searchFood(value);
-            },
+            controller: foodController.searchController,
+            onSearch: foodController.onSearch,
+            onChanged: foodController.searchFood,
           ),
-          if (_isLoading)
+          if (foodController.isLoading)
             const SliverFillRemaining(
-              child: Center(child: CircularProgressIndicator()),
+              child: LoadingWidget(),
             )
-          else if (_error.isNotEmpty)
+          else if (foodController.error.isNotEmpty)
             SliverFillRemaining(
-              child: Center(child: Text(_error)),
+              child: Center(child: Text(foodController.error)),
             )
-          else if (_searchController.text.isEmpty && _filteredFoodData.isEmpty)
+          else if (foodController.searchController.text.isEmpty &&
+              foodController.filteredFoodData.isEmpty)
             const SliverFillRemaining(
               child: Center(
                 child: Text(
@@ -120,15 +47,14 @@ class _FoodSearchScreenState extends State<FoodSearchScreen> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  final food = _filteredFoodData[index];
+                  final food = foodController.filteredFoodData[index];
                   return FoodItemWidget(
-                    title: food['title'] ?? '',
-                    description: food['description'] ?? '',
-                    imageUrl: food['image'] ??
-                        'https://via.placeholder.com/100', // Default image URL
+                    title: food.title,
+                    description: food.description,
+                    imageUrl: food.imageUrl,
                   );
                 },
-                childCount: _filteredFoodData.length,
+                childCount: foodController.filteredFoodData.length,
               ),
             ),
         ],

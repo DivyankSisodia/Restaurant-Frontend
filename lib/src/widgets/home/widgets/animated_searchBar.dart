@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../views/search.screen.dart';
+
 class AnimatedTextSearchBar extends StatefulWidget {
   const AnimatedTextSearchBar({super.key});
 
@@ -50,6 +52,14 @@ class _AnimatedTextSearchBarState extends State<AnimatedTextSearchBar> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FoodSearchScreen(),
+          ),
+        );
+      },
       controller: _textEditingController,
       decoration: InputDecoration(
         fillColor: Colors.grey[100],

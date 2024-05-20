@@ -54,16 +54,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // Create multipart request
       final Uri uri = Uri.parse(
-          'http://10.0.2.2:3001/api/v1/auth/register'); // Replace with your backend URL
+        'https://restaurants-backend-gnl2.onrender.com/api/v1/auth/register',
+      ); // Replace with your backend URL
       final http.MultipartRequest request = http.MultipartRequest('POST', uri);
 
       // Add text fields
       userData.forEach((key, value) {
         request.fields[key] = value.toString();
-      });
-
-      request.headers.addAll({
-        'Content-Type': 'application/json', // Assuming JSON data is sent
       });
 
       // Add image file if selected
@@ -78,20 +75,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // Handle response
       final dynamic decodedResponse = json.decode(responseData);
-      debugPrint(decodedResponse); // You can handle the response as needed
-      Navigator.push(
-        context,
-        PageTransition(
-          duration: const Duration(milliseconds: 1000),
-          reverseDuration: const Duration(milliseconds: 900),
-          type: PageTransitionType.topToBottom,
-          child: const LoginScreen(),
-        ),
-      );
+      debugPrint(
+          decodedResponse.toString()); // You can handle the response as needed
+
+      if (response.statusCode == 201) {
+        Navigator.push(
+          context,
+          PageTransition(
+            duration: const Duration(milliseconds: 1000),
+            reverseDuration: const Duration(milliseconds: 900),
+            type: PageTransitionType.topToBottom,
+            child: const LoginScreen(),
+          ),
+        );
+      } else {
+        // Handle error response
+        debugPrint('Registration failed: ${decodedResponse['message']}');
+      }
     } catch (e) {
       debugPrint('Error: $e');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
