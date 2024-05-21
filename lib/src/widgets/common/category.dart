@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../controller/category.controller.dart';
 
 class CategoryScreen extends ConsumerWidget {
@@ -55,8 +56,47 @@ class CategoryScreen extends ConsumerWidget {
           error: (error, stack) => const Center(
             child: Text('Error'),
           ),
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
+          loading: () => Stack(
+            children: [
+              Expanded(
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[200]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(),
+                ),
+              ),
+              MasonryGridView.builder(
+                scrollDirection: Axis.horizontal,
+                gridDelegate:
+                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: 3, // Number of shimmer items
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 130,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Column(
+                        children: [
+                          const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 30,
+                          ),
+                          const Gap(5),
+                          Container(
+                            width: 80,
+                            height: 15,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         );
       }),
