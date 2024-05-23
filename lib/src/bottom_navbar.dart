@@ -57,13 +57,14 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: _screens.isNotEmpty
           ? _screens[_currentIndex]
           : Container(), // Check if _screens is not empty before accessing its elements
       bottomNavigationBar: _token != null && !JwtDecoder.isExpired(_token!)
           ? Container(
-              height: 100,
+              height: height * 0.11,
               decoration: BoxDecoration(
                 color: Colors.grey[400],
                 borderRadius: const BorderRadius.only(
@@ -78,6 +79,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 ],
               ),
               child: CupertinoTabBar(
+                backgroundColor: Colors.white,
+                activeColor: Colors.orangeAccent,
+                iconSize: height * 0.035,
                 // type: BottomNavigationBarType.fixed,
                 // selectedFontSize: 12,
                 // unselectedFontSize: 12,

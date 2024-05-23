@@ -30,6 +30,7 @@ class _PromoBannerSliderState extends State<PromoBannerSlider> {
             ),
         ],
         options: CarouselOptions(
+          enlargeCenterPage: true,
           viewportFraction: 1,
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 3),

@@ -26,9 +26,9 @@ class CustomAppBar extends StatelessWidget {
       pinned: true,
       // floating: true,
       // stretch: true,
-      expandedHeight: height * 0.135,
+      expandedHeight: height * 0.195,
       bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
+        preferredSize: const Size.fromHeight(10),
         child: Column(
           children: [
             Container(

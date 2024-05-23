@@ -14,7 +14,7 @@ class CategoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
-      builder: ((context, ref, child) {
+      builder: (context, ref, child) {
         final foodList = ref.watch(categoriesProvider);
         return foodList.when(
           data: (data) => MasonryGridView.builder(
@@ -56,50 +56,38 @@ class CategoryScreen extends ConsumerWidget {
           error: (error, stack) => const Center(
             child: Text('Error'),
           ),
-          loading: () => Stack(
-            children: [
-              Expanded(
-                child: Shimmer.fromColors(
-                  baseColor: Colors.grey[200]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(),
-                ),
+          loading: () => Shimmer.fromColors(
+            baseColor: Colors.grey[200]!,
+            highlightColor: Colors.grey[100]!,
+            child: MasonryGridView.builder(
+              scrollDirection: Axis.horizontal,
+              gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
-              MasonryGridView.builder(
-                scrollDirection: Axis.horizontal,
-                gridDelegate:
-                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: 3, // Number of shimmer items
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: 130,
-                    child: Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Column(
-                        children: [
-                          const CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 30,
-                          ),
-                          const Gap(5),
-                          Container(
-                            width: 80,
-                            height: 15,
-                            color: Colors.white,
-                          ),
-                        ],
+              itemCount: 3, // Number of shimmer items
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: 130,
+                  child: Column(
+                    children: [
+                      const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 30,
                       ),
-                    ),
-                  );
-                },
-              ),
-            ],
+                      const Gap(5),
+                      Container(
+                        width: 80,
+                        height: 15,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         );
-      }),
+      },
     );
   }
 }
