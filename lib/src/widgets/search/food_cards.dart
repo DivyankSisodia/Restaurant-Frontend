@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FoodItemWidget extends StatelessWidget {
   final String title;
@@ -22,7 +24,7 @@ class FoodItemWidget extends StatelessWidget {
         width: width,
         height: height * 0.17,
         child: Card(
-          color: Colors.green,
+          color: Colors.white,
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -46,12 +48,14 @@ class FoodItemWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.dmSans().fontFamily,
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -59,12 +63,41 @@ class FoodItemWidget extends StatelessWidget {
                         fit: FlexFit.loose,
                         child: Text(
                           description,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 14,
                             color: Colors.black54,
+                            fontFamily: GoogleFonts.dmSans().fontFamily,
+                            fontWeight: FontWeight.w500,
                           ),
-                          maxLines: 5,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const Gap(10),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Container(
+                          height: height * 0.04,
+                          alignment: Alignment.bottomRight,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Colors.orangeAccent.withOpacity(0.8),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              'Order Now',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontFamily: GoogleFonts.dmSans().fontFamily,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],

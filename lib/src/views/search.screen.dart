@@ -5,8 +5,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../controller/search_food.controller.dart';
 import '../model/Hive/searched_food_history.dart';
 import '../widgets/common/custom_loading_page.dart';
+import '../widgets/common/heading_text.dart';
 import '../widgets/food/view/food.searchBar.widget.dart';
 import '../widgets/search/food_cards.dart';
+import 'package:collection/collection.dart';
 
 class FoodSearchScreen extends ConsumerStatefulWidget {
   const FoodSearchScreen({super.key});
@@ -28,108 +30,165 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
   }
 
   void _saveSearchTerm(String searchTerm) {
-    final newSearch = SearchedFoodHistory()..title = searchTerm;
-    _searchedFoodBox.add(newSearch);
+    final existingSearch = _searchedFoodBox.values.firstWhereOrNull(
+      (history) => history.title == searchTerm,
+    );
+
+    if (existingSearch == null) {
+      final newSearch = SearchedFoodHistory()..title = searchTerm;
+      _searchedFoodBox.add(newSearch);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final foodController = ref.watch(foodControllerProvider);
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          FoodSearchBar(
-            controller: foodController.searchController,
-            onSearch: () {
-              final searchText = foodController.searchController.text.trim();
-              if (searchText.isNotEmpty) {
-                _saveSearchTerm(searchText);
-                foodController.onSearch();
-              }
-            },
-            onChanged: (value) {
-              foodController.searchFood(value);
-            },
-          ),
-          SliverToBoxAdapter(
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: ValueListenableBuilder(
-                valueListenable: _searchedFoodBox.listenable(),
-                builder: (BuildContext context, Box<SearchedFoodHistory> box,
-                    Widget? _) {
-                  final List<SearchedFoodHistory> searchHistory =
-                      box.values.toList();
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Wrap(
-                      spacing: 8.0,
-                      runSpacing: 8.0,
-                      children: searchHistory.map((history) {
-                        return TextFieldWithIcon(
-                          height: 40.0,
-                          backgroundColor: Colors.white,
-                          icon: Icons.history,
-                          label: history.title,
-                        );
-                      }).toList(),
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: AppBar(
+                  leading: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.shopping_cart),
+                      onPressed: () {
+                        // Navigate to the cart screen
+                      },
                     ),
-                  );
+                  ],
+                  backgroundColor: Colors.white,
+                  title: const Center(
+                    child: HeadingText(
+                      title: 'Hunt for your next meal...',
+                    ),
+                  ),
+                ),
+              ),
+              FoodSearchBar(
+                controller: foodController.searchController,
+                onSearch: () {
+                  final searchText =
+                      foodController.searchController.text.trim();
+                  if (searchText.isNotEmpty) {
+                    _saveSearchTerm(searchText);
+                    foodController.onSearch();
+                  }
+                },
+                onChanged: (value) {
+                  foodController.searchFood(value);
                 },
               ),
-            ),
+              SliverToBoxAdapter(
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: ValueListenableBuilder(
+                    valueListenable: _searchedFoodBox.listenable(),
+                    builder: (BuildContext context,
+                        Box<SearchedFoodHistory> box, Widget? _) {
+                      final List<SearchedFoodHistory> searchHistory =
+                          box.values.toList();
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Wrap(
+                          spacing: 8.0,
+                          runSpacing: 8.0,
+                          children: searchHistory.map((history) {
+                            return TextFieldWithIcon(
+                              height: 40.0,
+                              backgroundColor: Colors.white,
+                              icon: Icons.history,
+                              label: history.title,
+                            );
+                          }).toList(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              if (foodController.isLoading)
+                const SliverFillRemaining(
+                  child: LoadingWidget(),
+                )
+              else if (foodController.error.isNotEmpty)
+                SliverFillRemaining(
+                  child: Center(child: Text(foodController.error)),
+                )
+              else if (foodController.searchController.text.isEmpty &&
+                  foodController.filteredFoodData.isEmpty)
+                const SliverFillRemaining(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Popular Cuisines',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              else if (foodController.filteredFoodData.isEmpty)
+                SliverFillRemaining(
+                  child: DecoratedBox(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'No results found for "${foodController.searchController.text}"',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.dmSans().fontFamily,
+                          color: Colors.redAccent.shade200,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              else if (foodController.isRestaurantSearch)
+                SliverToBoxAdapter(
+                  child: RestaurantItemWidget(
+                    restaurantName: foodController.matchedRestaurant,
+                  ),
+                )
+              else
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      final food = foodController.filteredFoodData[index];
+                      return Container(
+                        color: Colors.white,
+                        child: FoodItemWidget(
+                          title: food.title,
+                          description: food.description,
+                          imageUrl: food.imageUrl,
+                        ),
+                      );
+                    },
+                    childCount: foodController.filteredFoodData.length,
+                  ),
+                ),
+            ],
           ),
-          if (foodController.isLoading)
-            const SliverFillRemaining(
-              child: LoadingWidget(),
-            )
-          else if (foodController.error.isNotEmpty)
-            SliverFillRemaining(
-              child: Center(child: Text(foodController.error)),
-            )
-          else if (foodController.searchController.text.isEmpty &&
-              foodController.filteredFoodData.isEmpty)
-            const SliverFillRemaining(
-              child: Center(
-                child: Text(
-                  'Enter a search term to see results',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            )
-          else if (foodController.filteredFoodData.isEmpty)
-            SliverFillRemaining(
-              child: Center(
-                child: Text(
-                  'No results found for "${foodController.searchController.text}"',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            )
-          else
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  final food = foodController.filteredFoodData[index];
-                  return FoodItemWidget(
-                    title: food.title,
-                    description: food.description,
-                    imageUrl: food.imageUrl,
-                  );
-                },
-                childCount: foodController.filteredFoodData.length,
-              ),
-            ),
-        ],
+        ),
       ),
     );
   }
@@ -178,6 +237,38 @@ class TextFieldWithIcon extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class RestaurantItemWidget extends StatelessWidget {
+  final String restaurantName;
+
+  const RestaurantItemWidget({
+    super.key,
+    required this.restaurantName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              restaurantName,
+              style: const TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+          ],
+        ),
       ),
     );
   }

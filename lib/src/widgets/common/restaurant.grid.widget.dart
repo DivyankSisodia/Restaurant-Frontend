@@ -23,9 +23,9 @@ class RestaurantGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    return FadeInDown(
-      delay: const Duration(milliseconds: 300),
-      duration: const Duration(milliseconds: 500),
+    return SlideInRight(
+      delay: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 400),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
