@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/src/controller/favoriteList.controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/src/controller/animtaion.controller.dart';
 import 'package:food_delivery/src/model/restaurant.model.dart';
 import 'package:food_delivery/src/widgets/common/dottedLine.widget.dart';
 import 'package:food_delivery/src/widgets/common/likeANDshare.widget.dart';
@@ -10,7 +11,7 @@ import '../home/widgets/restaurant.discountText.widget.dart';
 import '../home/widgets/restaurant.image.widget.dart';
 import '../home/widgets/restaurant.texts.dart';
 
-class RestaurantGridWidget extends StatelessWidget {
+class RestaurantGridWidget extends ConsumerWidget {
   const RestaurantGridWidget({
     super.key,
     required this.image,
@@ -25,41 +26,73 @@ class RestaurantGridWidget extends StatelessWidget {
   final Restaurants restaurant;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final restuarantAnimation = ref.watch(animationStateProvider);
     double height = MediaQuery.of(context).size.height;
-    return SlideInRight(
-      delay: const Duration(milliseconds: 200),
-      duration: const Duration(milliseconds: 400),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 10,
-              offset: const Offset(1, 1),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                RestaurantImageWidget(height: height, image: image),
-                const LinearGradientContainerWidget(),
-                LikeAndShareIconsWidget(
-                  restaurant: restaurant,
+    return restuarantAnimation
+        ? Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                  offset: const Offset(1, 1),
                 ),
               ],
             ),
-            HomeScreenRestaurantTexts(title: title, rating: rating),
-            const DottedLineWidget(),
-            const RestaurantDiscountTextWidget(),
-          ],
-        ),
-      ),
-    );
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    RestaurantImageWidget(height: height, image: image),
+                    const LinearGradientContainerWidget(),
+                    LikeAndShareIconsWidget(
+                      restaurant: restaurant,
+                    ),
+                  ],
+                ),
+                HomeScreenRestaurantTexts(title: title, rating: rating),
+                const DottedLineWidget(),
+                const RestaurantDiscountTextWidget(),
+              ],
+            ),
+          )
+        : SlideInRight(
+            delay: const Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 400),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: const Offset(1, 1),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      RestaurantImageWidget(height: height, image: image),
+                      const LinearGradientContainerWidget(),
+                      LikeAndShareIconsWidget(
+                        restaurant: restaurant,
+                      ),
+                    ],
+                  ),
+                  HomeScreenRestaurantTexts(title: title, rating: rating),
+                  const DottedLineWidget(),
+                  const RestaurantDiscountTextWidget(),
+                ],
+              ),
+            ),
+          );
   }
 }

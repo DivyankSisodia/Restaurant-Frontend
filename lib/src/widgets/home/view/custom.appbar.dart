@@ -39,7 +39,11 @@ class CustomAppBar extends ConsumerWidget {
               margin: const EdgeInsets.symmetric(
                 horizontal: 16.0,
               ),
-              child: const AnimatedTextSearchBar(),
+              child: animtaionShow
+                  ? const AnimatedTextSearchBar()
+                  : SlideInDown(
+                      child: const AnimatedTextSearchBar(),
+                    ),
             ),
             const Gap(5),
           ],
