@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:animate_do/animate_do.dart';
 
 import '../../../views/search.screen.dart';
 
@@ -51,68 +52,71 @@ class _AnimatedTextSearchBarState extends State<AnimatedTextSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FoodSearchScreen(),
-          ),
-        );
-      },
-      controller: _textEditingController,
-      decoration: InputDecoration(
-        fillColor: Colors.grey[100],
-        filled: true,
-        hintText: _searchHintText,
-        contentPadding: const EdgeInsets.only(left: 26.0),
-        hintStyle: TextStyle(
-          fontSize: 17.0,
-          fontWeight: FontWeight.w500,
-          fontFamily: GoogleFonts.poppins().fontFamily,
-          color: Colors.grey[700],
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
-          borderSide: BorderSide(
-            width: 1,
-            color: Colors.grey[300]!,
-          ),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-          borderSide: BorderSide(
-            width: 2,
-            color: Colors.blueGrey,
-          ),
-        ),
-        suffixIcon: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              onPressed: () {
-                // Handle search icon press
-              },
-              icon: Icon(
-                Iconsax.search_favorite,
-                color: Colors.grey[800],
-              ),
+    return SlideInDown(
+      duration: Durations.long4,
+      child: TextFormField(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const FoodSearchScreen(),
             ),
-            Container(
-              height: 20,
+          );
+        },
+        controller: _textEditingController,
+        decoration: InputDecoration(
+          fillColor: Colors.grey[100],
+          filled: true,
+          hintText: _searchHintText,
+          contentPadding: const EdgeInsets.only(left: 26.0),
+          hintStyle: TextStyle(
+            fontSize: 17.0,
+            fontWeight: FontWeight.w500,
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            color: Colors.grey[700],
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+            borderSide: BorderSide(
+              width: 1,
+              color: Colors.grey[300]!,
+            ),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            borderSide: BorderSide(
               width: 2,
-              color: Colors.grey[400],
+              color: Colors.blueGrey,
             ),
-            IconButton(
-              onPressed: () {
-                // Handle mic icon press
-              },
-              icon: const Icon(
-                CupertinoIcons.mic_solid,
-                color: Colors.redAccent,
+          ),
+          suffixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  // Handle search icon press
+                },
+                icon: Icon(
+                  Iconsax.search_favorite,
+                  color: Colors.grey[800],
+                ),
               ),
-            ),
-          ],
+              Container(
+                height: 20,
+                width: 2,
+                color: Colors.grey[400],
+              ),
+              IconButton(
+                onPressed: () {
+                  // Handle mic icon press
+                },
+                icon: const Icon(
+                  CupertinoIcons.mic_solid,
+                  color: Colors.redAccent,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

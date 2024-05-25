@@ -1,11 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/src/controller/animtaion.controller.dart';
 import 'package:gap/gap.dart';
 
 import '../widgets/animated_searchBar.dart';
 import '../widgets/home_appbar.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends ConsumerWidget {
   const CustomAppBar({
     super.key,
     required this.height,
@@ -18,7 +20,9 @@ class CustomAppBar extends StatelessWidget {
   final String address;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final animtaionShow = ref.watch(animationStateProvider);
+
     return SliverAppBar(
       automaticallyImplyLeading: false,
       surfaceTintColor: Colors.transparent,
@@ -46,13 +50,23 @@ class CustomAppBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-              FadeInRight(
-                delay: const Duration(milliseconds: 250),
-                child: HomeAppBar(
-                  height: height,
-                  width: width,
-                ),
-              ),
+              animtaionShow
+                  ? HomeAppBar(
+                      height: height,
+                      width: width,
+                    )
+                  : FadeInRight(
+                      onFinish: (direction) {
+                        ref
+                            .read(animationStateProvider.notifier)
+                            .setAnimation();
+                      },
+                      delay: const Duration(milliseconds: 450),
+                      child: HomeAppBar(
+                        height: height,
+                        width: width,
+                      ),
+                    ),
             ],
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/controller/favoriteList.controller.dart';
+import 'package:food_delivery/src/model/restaurant.model.dart';
 import 'package:food_delivery/src/widgets/common/dottedLine.widget.dart';
 import 'package:food_delivery/src/widgets/common/likeANDshare.widget.dart';
 import 'package:food_delivery/src/widgets/common/linearGradient.container.dart';
@@ -14,11 +16,13 @@ class RestaurantGridWidget extends StatelessWidget {
     required this.image,
     required this.title,
     required this.rating,
+    required this.restaurant,
   });
 
   final String image;
   final String title;
   final String rating;
+  final Restaurants restaurant;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,9 @@ class RestaurantGridWidget extends StatelessWidget {
               children: [
                 RestaurantImageWidget(height: height, image: image),
                 const LinearGradientContainerWidget(),
-                const LikeAndShareIconsWidget(),
+                LikeAndShareIconsWidget(
+                  restaurant: restaurant,
+                ),
               ],
             ),
             HomeScreenRestaurantTexts(title: title, rating: rating),

@@ -58,6 +58,7 @@ class DisplayRestaurantsWidget extends StatelessWidget {
                     image: data[index].imageUrl,
                     title: data[index].title,
                     rating: data[index].rating.toString(),
+                    restaurant: data[index],
                   ),
                 ),
                 error: (error, stack) => const Center(

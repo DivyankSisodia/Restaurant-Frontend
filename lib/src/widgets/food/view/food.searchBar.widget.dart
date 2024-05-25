@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../../views/search.screen.dart';
 
 class FoodSearchBar extends StatefulWidget {
   const FoodSearchBar({
@@ -44,15 +47,15 @@ class _FoodSearchBarState extends State<FoodSearchBar> {
                   cursorColor: Colors.grey[400],
                   onChanged: widget.onChanged,
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   PageTransition(
-                    //     duration: const Duration(milliseconds: 900),
-                    //     reverseDuration: const Duration(milliseconds: 700),
-                    //     type: PageTransitionType.leftToRightWithFade,
-                    //     child: const FoodSearchScreen(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        duration: const Duration(milliseconds: 900),
+                        reverseDuration: const Duration(milliseconds: 700),
+                        type: PageTransitionType.leftToRightWithFade,
+                        child: const FoodSearchScreen(),
+                      ),
+                    );
                   },
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(

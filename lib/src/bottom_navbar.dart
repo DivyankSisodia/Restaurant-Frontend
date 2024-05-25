@@ -7,9 +7,9 @@ import 'package:food_delivery/src/views/sign.screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'views/favorite.screen.dart';
 import 'views/home.screen.dart';
 import 'views/profile.screen.dart';
-import 'views/search.screen.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({super.key});
@@ -41,7 +41,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             'address': [_address]
           }),
           const FoodScreen(),
-          const FoodSearchScreen(),
+          const LikedRestaurantsScreen(),
           const ProfileScreen(),
         ];
       } else {
