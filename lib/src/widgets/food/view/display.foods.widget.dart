@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/widgets/food/view/food.List.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../../controller/food.controller.dart';
 

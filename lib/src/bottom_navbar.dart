@@ -21,7 +21,6 @@ class CustomBottomNavBar extends StatefulWidget {
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int _currentIndex = 0;
   String? _token;
-  String? _address;
   late List<Widget> _screens = []; // Initialize _screens with an empty list
 
   @override
@@ -37,9 +36,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     setState(() {
       if (_token != null && !JwtDecoder.isExpired(_token!)) {
         _screens = [
-          HomeScreen(token: _token, userData: {
-            'address': [_address]
-          }),
+          HomeScreen(token: _token),
           const FoodScreen(),
           const LikedRestaurantsScreen(),
           const ProfileScreen(),

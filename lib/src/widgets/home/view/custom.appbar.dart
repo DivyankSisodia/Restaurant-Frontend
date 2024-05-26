@@ -12,12 +12,10 @@ class CustomAppBar extends ConsumerWidget {
     super.key,
     required this.height,
     required this.width,
-    required this.address,
   });
 
   final double height;
   final double width;
-  final String address;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

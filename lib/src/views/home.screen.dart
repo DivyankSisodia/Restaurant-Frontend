@@ -18,24 +18,18 @@ class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({
     super.key,
     required this.token,
-    required this.userData,
   });
 
   final token;
-  final userData;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  late String address;
-
   @override
   void initState() {
     super.initState();
-
-    debugPrint('Token: ${(widget.userData)}');
 
     try {
       if (widget.token != null) {
@@ -43,28 +37,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         debugPrint('Decoded token: $jwtDecodeToken');
 
         // Set address from widget.userData
-        address = widget.userData != null && widget.userData['address'] != null
-            ? widget.userData['address'][0] ?? 'Unknown'
-            : 'Unknown';
-
-        debugPrint('Address found: $address');
       } else {
         debugPrint('Token is null');
-        address = 'Unknown';
       }
     } catch (e) {
       debugPrint('Error decoding token: $e');
-      address = 'Unknown';
     }
-
-    // Store address using SharedPreferences
-    storeAddress(address);
-  }
-
-  // Function to store address using SharedPreferences
-  Future<void> storeAddress(String address) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_address', address);
   }
 
   @override
@@ -80,7 +58,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           scrollBehavior: const CupertinoScrollBehavior(),
           slivers: [
             // Address and search bar
-            CustomAppBar(height: height, width: width, address: address),
+            CustomAppBar(height: height, width: width,),
 
             // Promo banner slider
             const BannerImages(),
