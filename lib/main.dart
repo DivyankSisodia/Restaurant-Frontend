@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'src/model/Hive/favorite_restaurant.dart';
 import 'src/model/Hive/searched_food_history.dart';
 
 void main() async {
@@ -15,6 +16,8 @@ void main() async {
   String? token = pref.getString('token');
   await Hive.initFlutter();
   Hive.registerAdapter(SearchedFoodHistoryAdapter());
+  Hive.registerAdapter(FavRestaurantModelAdapter());
+  await Hive.openBox<FavRestaurantModel>('favoriteRestaurantBox');
   await Hive.openBox<SearchedFoodHistory>('searchedFoodBox');
   await Hive.openBox('user_info');
   SystemChrome.setEnabledSystemUIMode(

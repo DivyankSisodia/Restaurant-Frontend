@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../utils/helper/restaurantFoodbottomSheet.dart';
 
-
 class RestaurantsFoodCardWidget extends StatelessWidget {
   const RestaurantsFoodCardWidget({
     super.key,
@@ -18,9 +17,9 @@ class RestaurantsFoodCardWidget extends StatelessWidget {
   final Map<String, dynamic> food;
 
   @override
-  Widget build(BuildContext context) {   
+  Widget build(BuildContext context) {
     return Container(
-      height: height * 0.23,
+      height: height * 0.24,
       width: width,
       margin: const EdgeInsets.only(
         // vertical: 8,
@@ -91,7 +90,7 @@ class RestaurantsFoodCardWidget extends StatelessWidget {
                   ),
                   const Gap(4),
                   Text(
-                    maxLines: 3,
+                    maxLines: 2,
                     food['description']
                         as String, // Access 'description' property
                     style: TextStyle(
@@ -160,7 +159,8 @@ class RestaurantsFoodCardWidget extends StatelessWidget {
       ),
     );
   }
-   void bottomSheet(BuildContext context) {
+
+  void bottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -169,4 +169,3 @@ class RestaurantsFoodCardWidget extends StatelessWidget {
     );
   }
 }
-

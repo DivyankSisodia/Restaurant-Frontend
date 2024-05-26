@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../model/restaurant.model.dart';
 import '../utils/helper/filterFood.dart';
@@ -9,7 +10,6 @@ import '../widgets/restaurant/view/restaurant.coupons.dart';
 import '../widgets/restaurant/view/restaurant.details.container.dart';
 import '../widgets/restaurant/view/restaurant.foodList.dart';
 import '../widgets/restaurant/view/restaurant.headingText.dart';
-// Import your Restaurants model here
 
 class FoodScreenWidget extends StatefulWidget {
   final Restaurants restaurant;
@@ -51,10 +51,8 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    String shortAddress =
-        AddressHelper.getShortAddress(widget.restaurant.address);
-    String remainingAddress =
-        AddressHelper.getRemainingAddress(widget.restaurant.address);
+    String shortAddress = AddressHelper.getShortAddress(widget.restaurant.address);
+    String remainingAddress = AddressHelper.getRemainingAddress(widget.restaurant.address);
 
     return Scaffold(
       body: CustomScrollView(
@@ -72,6 +70,9 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
           ),
           const MenuHeadingText(),
           buildSearchBar(height),
+          const SliverToBoxAdapter(
+            child: Gap(10),
+          ),
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.only(left: 3.0, bottom: 25),

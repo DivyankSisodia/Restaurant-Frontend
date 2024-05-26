@@ -27,6 +27,7 @@ class RestaurantInfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.only(
         bottom: 20.0,
@@ -34,6 +35,7 @@ class RestaurantInfoContainer extends StatelessWidget {
         right: 10.0,
       ),
       child: Container(
+        height: height * 0.33,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

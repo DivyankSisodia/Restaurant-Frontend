@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/src/model/Hive/favorite_restaurant.dart';
+import '../../../controller/favoriteList.controller.dart';
 
-class RestaurantAppBar extends StatelessWidget implements PreferredSizeWidget {
+class RestaurantAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const RestaurantAppBar({
     super.key,
+    this.restaurant,
   });
+
+  final FavRestaurantModel? restaurant;
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
       backgroundColor: Colors.grey[300],
       leading: IconButton(
@@ -25,7 +32,11 @@ class RestaurantAppBar extends StatelessWidget implements PreferredSizeWidget {
             size: 30,
           ),
           onPressed: () {
-            // Navigate to the cart screen
+            if (restaurant != null) {
+              ref.read(restListProvider.notifier).addRestaurant(restaurant!);
+            } else {
+              print('Restaurant is null');
+            }
           },
         ),
         Padding(

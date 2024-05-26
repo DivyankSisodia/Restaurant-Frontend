@@ -48,6 +48,7 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: CustomScrollView(
             slivers: [
               SliverToBoxAdapter(
@@ -231,10 +232,10 @@ class TextFieldWithIcon extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontSize: 14.0,
-              fontFamily: GoogleFonts.poppins().fontFamily,
-              fontWeight: FontWeight.w500,
-            ),
+                fontSize: 14.0,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 1.4),
           ),
         ],
       ),
@@ -259,6 +260,13 @@ class RestaurantItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              'Restaurant',
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Text(
               restaurantName,
               style: const TextStyle(

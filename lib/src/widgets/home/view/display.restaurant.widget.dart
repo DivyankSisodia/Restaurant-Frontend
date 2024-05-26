@@ -29,7 +29,7 @@ class DisplayRestaurantsWidget extends StatelessWidget {
             crossAxisCount: 1,
             mainAxisSpacing: 25.0,
             crossAxisSpacing: 16.0,
-            mainAxisExtent: height * 0.33,
+            mainAxisExtent: height * 0.34,
           ),
           delegate: SliverChildBuilderDelegate(
             (context, index) {

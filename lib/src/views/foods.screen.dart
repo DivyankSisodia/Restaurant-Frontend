@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../widgets/common/heading_text.dart';
 import '../widgets/food/view/display.foods.widget.dart';
 import '../widgets/food/view/food.searchBar.widget.dart';
+import 'search.screen.dart';
 
 class FoodScreen extends ConsumerWidget {
   const FoodScreen({super.key});
@@ -46,7 +48,19 @@ class FoodScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const FoodSearchBar(),
+                FoodSearchBar(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        duration: const Duration(milliseconds: 600),
+                        reverseDuration: const Duration(milliseconds: 400),
+                        child: const FoodSearchScreen(),
+                        type: PageTransitionType.rightToLeftWithFade,
+                      ),
+                    );
+                  },
+                ),
                 const SliverPadding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0),
                   sliver: DisplayFoodsWidget(),

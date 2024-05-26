@@ -13,7 +13,7 @@ class RestaurantDiscountTextWidget extends StatelessWidget {
       flex: 3,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.only(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/widgets/food/view/food.List.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../controller/food.controller.dart';
 
@@ -42,12 +44,22 @@ class DisplayFoodsWidget extends StatelessWidget {
             );
           },
           loading: () => const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 500,
-              child: Center(
-              child: CircularProgressIndicator(),
+            child: Center(
+              child: SizedBox(
+                height: 100,
+                width: 100,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballTrianglePathColoredFilled,
+                  colors: [
+                    Colors.orangeAccent,
+                    Colors.greenAccent,
+                    Colors.blueAccent
+                  ],
+                  strokeWidth: 2,
+                  backgroundColor: Colors.white,
+                ),
+              ),
             ),
-            )
           ),
         );
       },

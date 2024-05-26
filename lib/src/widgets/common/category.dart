@@ -88,24 +88,22 @@ class CategoryScreen extends ConsumerWidget {
                   const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: 3, // Number of shimmer items
+              itemCount: 10, // Number of shimmer items
               itemBuilder: (context, index) {
-                return SizedBox(
-                  width: 130,
-                  child: Column(
-                    children: [
-                      const CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 30,
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 120,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
-                      const Gap(5),
-                      Container(
-                        width: 80,
-                        height: 15,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               },
             ),

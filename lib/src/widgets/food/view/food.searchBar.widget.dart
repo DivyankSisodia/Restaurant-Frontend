@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:page_transition/page_transition.dart';
-
-import '../../../views/search.screen.dart';
 
 class FoodSearchBar extends StatefulWidget {
   const FoodSearchBar({
@@ -13,11 +10,13 @@ class FoodSearchBar extends StatefulWidget {
     this.controller,
     this.onChanged,
     this.onSearch,
+    this.onTap, // Add onTap parameter
   });
 
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final VoidCallback? onSearch;
+  final VoidCallback? onTap; // Add onTap parameter
 
   @override
   State<FoodSearchBar> createState() => _FoodSearchBarState();
@@ -31,8 +30,6 @@ class _FoodSearchBarState extends State<FoodSearchBar> {
       surfaceTintColor: Colors.transparent,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       pinned: true,
-      // floating: true,
-      // stretch: true,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(10),
         child: Column(
@@ -46,17 +43,7 @@ class _FoodSearchBarState extends State<FoodSearchBar> {
                   controller: widget.controller,
                   cursorColor: Colors.grey[400],
                   onChanged: widget.onChanged,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        duration: const Duration(milliseconds: 900),
-                        reverseDuration: const Duration(milliseconds: 700),
-                        type: PageTransitionType.leftToRightWithFade,
-                        child: const FoodSearchScreen(),
-                      ),
-                    );
-                  },
+                  onTap: widget.onTap, // Pass the onTap parameter
                   textAlign: TextAlign.start,
                   decoration: InputDecoration(
                     filled: true,
