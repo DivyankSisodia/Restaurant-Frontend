@@ -8,6 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'src/model/Hive/favorite_restaurant.dart';
 import 'src/model/Hive/searched_food_history.dart';
+import 'src/model/category.model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +18,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SearchedFoodHistoryAdapter());
   Hive.registerAdapter(FavRestaurantModelAdapter());
+  Hive.registerAdapter(FoodCategoryAdapter()); // Register the FoodCategoryAdapter
   await Hive.openBox<FavRestaurantModel>('favoriteRestaurantBox');
   await Hive.openBox<SearchedFoodHistory>('searchedFoodBox');
+  await Hive.openBox<FoodCategory>('foodCategoryBox'); // Open the box with FoodCategory type
   await Hive.openBox('user_info');
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,

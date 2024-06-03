@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/src/bottom_navbar.dart';
 import 'package:food_delivery/src/views/home.screen.dart';
 import 'package:food_delivery/src/widgets/food/view/food.searchBar.widget.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/favoriteList.controller.dart';
 import '../widgets/common/dot.separator.widget.dart';
 
 class LikedRestaurantsScreen extends ConsumerWidget {
-  const LikedRestaurantsScreen({super.key});
+  const LikedRestaurantsScreen({super.key, required this.token});
+
+  final String? token;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,10 +29,13 @@ class LikedRestaurantsScreen extends ConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const FoodSearchBar()),
-                (route) => false);
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) => const CustomBottomNavBar(),
+                transitionDuration: const Duration(seconds: 0),
+              ),
+            );
           },
         ),
         centerTitle: true,

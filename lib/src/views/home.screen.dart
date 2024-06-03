@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/home/view/display.restaurant.widget.dart';
 import '../widgets/home/view/banner.images.widget.dart';
@@ -35,8 +34,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       if (widget.token != null) {
         Map<String, dynamic> jwtDecodeToken = JwtDecoder.decode(widget.token!);
         debugPrint('Decoded token: $jwtDecodeToken');
-
-        // Set address from widget.userData
       } else {
         debugPrint('Token is null');
       }

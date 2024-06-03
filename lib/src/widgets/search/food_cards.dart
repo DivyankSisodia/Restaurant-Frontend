@@ -56,6 +56,7 @@ class FoodItemWidget extends StatelessWidget {
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           fontFamily: GoogleFonts.dmSans().fontFamily,
+                          letterSpacing: 1.1,
                         ),
                       ),
                       const SizedBox(height: 5),

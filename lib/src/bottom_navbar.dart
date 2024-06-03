@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/views/cart.screen.dart';
 import 'package:food_delivery/src/views/foods.screen.dart';
 import 'package:food_delivery/src/views/sign.screen.dart';
 import 'package:iconsax/iconsax.dart';
@@ -37,8 +38,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       if (_token != null && !JwtDecoder.isExpired(_token!)) {
         _screens = [
           HomeScreen(token: _token),
-          const FoodScreen(),
-          const LikedRestaurantsScreen(),
+          FoodScreen(
+            token: _token,
+          ),
+          const CartScreen(),
           const ProfileScreen(),
         ];
       } else {
@@ -75,15 +78,14 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   ),
                 ],
               ),
-              child: CupertinoTabBar(
+              child: BottomNavigationBar(
                 backgroundColor: Colors.white,
-                activeColor: Colors.orangeAccent,
                 iconSize: height * 0.035,
-                // type: BottomNavigationBarType.fixed,
-                // selectedFontSize: 12,
-                // unselectedFontSize: 12,
-                // selectedItemColor: Colors.orange,
-                // unselectedItemColor: Colors.black,
+                type: BottomNavigationBarType.fixed,
+                selectedFontSize: 12,
+                unselectedFontSize: 12,
+                selectedItemColor: Colors.orange,
+                unselectedItemColor: Colors.black,
                 currentIndex: _currentIndex,
                 onTap: (int index) {
                   setState(() {
@@ -93,19 +95,27 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 items: const [
                   BottomNavigationBarItem(
                     tooltip: 'Home',
-                    icon: Icon(Iconsax.home),
+                    icon: Icon(
+                      Iconsax.home,
+                    ),
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Iconsax.box), // Replace with the correct icon
+                    icon: Icon(
+                      Iconsax.box,
+                    ), // Replace with the correct icon
                     label: 'Food',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Iconsax.heart), // Replace with the correct icon
-                    label: 'Favorites',
+                    icon: Icon(
+                      Iconsax.shopping_cart,
+                    ), // Replace with the correct icon
+                    label: 'Cart',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
+                    icon: Icon(
+                      Icons.person,
+                    ),
                     label: 'Profile',
                   ),
                 ],

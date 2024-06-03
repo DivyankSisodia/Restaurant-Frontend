@@ -35,7 +35,9 @@ class DisplayRestaurantsWidget extends StatelessWidget {
             (context, index) {
               // Check if index exceeds childCount, if so, return null
               if (index >= childCount) {
-                return null;
+                return const Center(
+                  child: Text('Loading...'), // Show loading text
+                );
               }
               // If data is available, build the RestaurantGridWidget
               return restaurantList.when(
@@ -64,8 +66,11 @@ class DisplayRestaurantsWidget extends StatelessWidget {
                 error: (error, stack) => const Center(
                   child: Text('Error'),
                 ),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
+                loading: () => SizedBox(
+                  height: height * 0.34,
+                  child: const Center(
+                    child: Text('Loading...'), // Show loading text
+                  ),
                 ),
               );
             },

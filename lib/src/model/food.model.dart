@@ -1,5 +1,6 @@
-import 'dart:convert';
+// ignore_for_file: must_be_immutable
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -11,6 +12,7 @@ class Foods {
   final String image;
   final double rating; // Changed type to double
   final int ratingCount; // Changed type to int
+  final int quantity; // Added quantity field
 
   const Foods({
     required this.id,
@@ -20,6 +22,7 @@ class Foods {
     required this.image,
     required this.rating,
     required this.ratingCount,
+    this.quantity = 0,
   });
 
   factory Foods.fromMap(Map<String, dynamic> map) {
@@ -31,6 +34,7 @@ class Foods {
       image: map['image'] as String,
       rating: (map['rating'] as num).toDouble(), // Parse rating as double
       ratingCount: map['ratingCount'] as int, // Parse ratingCount as int
+      quantity: map['quantity'] as int? ?? 0, // Parse quantity or default to 1
     );
   }
 
@@ -43,6 +47,7 @@ class Foods {
       'image': image,
       'rating': rating,
       'ratingCount': ratingCount,
+      'quantity': quantity,
     };
   }
 
@@ -50,4 +55,26 @@ class Foods {
 
   factory Foods.fromJson(String source) =>
       Foods.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  Foods copyWith({
+    String? id,
+    String? title,
+    String? description,
+    double? price,
+    String? image,
+    double? rating,
+    int? ratingCount,
+    int? quantity,
+  }) {
+    return Foods(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      price: price ?? this.price,
+      image: image ?? this.image,
+      rating: rating ?? this.rating,
+      ratingCount: ratingCount ?? this.ratingCount,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }

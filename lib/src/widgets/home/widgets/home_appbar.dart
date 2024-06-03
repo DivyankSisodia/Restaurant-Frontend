@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
@@ -14,14 +15,11 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Remove reassignment of width and height inside build method
     final box = Hive.box('user_info');
     final dynamic userAddress = box.get('address');
     final dynamic userProfilePic = box.get('profilePic');
 
-    debugPrint(
-      'User address: $userAddress',
-    );
+    debugPrint('User address: $userAddress');
     debugPrint('User profile pic: $userProfilePic');
 
     String addressText = '';
@@ -100,8 +98,18 @@ class HomeAppBar extends StatelessWidget {
                 ),
                 CircleAvatar(
                   radius: width * 0.06,
-                  backgroundImage: NetworkImage(
-                    userProfilePic ?? 'https://via.placeholder.com/150',
+                  child: ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          userProfilePic ?? 'https://via.placeholder.com/150',
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      fit: BoxFit.cover,
+                      width: width * 0.12, // Adjust the width if needed
+                      height: width * 0.12, // Adjust the height if needed
+                    ),
                   ),
                 ),
               ],

@@ -97,7 +97,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

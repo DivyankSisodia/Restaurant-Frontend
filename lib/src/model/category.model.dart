@@ -2,11 +2,20 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart' show immutable;
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'category.model.g.dart';
 
 @immutable
+@HiveType(typeId: 2)
 class FoodCategory {
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String title;
+
+  @HiveField(2)
   final String image;
 
   const FoodCategory({

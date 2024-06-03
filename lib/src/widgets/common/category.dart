@@ -6,6 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../controller/animtaion.controller.dart';
 import '../../controller/category.controller.dart';
 
@@ -19,69 +20,79 @@ class CategoryScreen extends ConsumerWidget {
         final categoryAnimation = ref.watch(animationStateProvider);
         final foodList = ref.watch(categoriesProvider);
         return foodList.when(
-          data: (data) => MasonryGridView.builder(
-            scrollDirection: Axis.horizontal,
-            gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              return SizedBox(
-                width: 130,
-                child: categoryAnimation
-                    ? Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 30,
-                            backgroundImage:
-                                CachedNetworkImageProvider(data[index].image),
-                          ),
-                          const Gap(5),
-                          Text(
-                            data[index].title,
-                            style: TextStyle(
-                              fontSize: 15.0,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ],
-                      )
-                    : SlideInLeft(
-                        duration: const Duration(milliseconds: 500),
-                        delay: Duration(milliseconds: 50 * index),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: 30,
-                              backgroundImage:
-                                  CachedNetworkImageProvider(data[index].image),
-                            ),
-                            const Gap(5),
-                            Text(
-                              data[index].title,
-                              style: TextStyle(
-                                fontSize: 15.0,
-                                fontFamily: GoogleFonts.poppins().fontFamily,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.grey[700],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+          data: (data) {
+            if (data.isEmpty) {
+              return const Center(
+                child: Text(
+                    'No categories available. Please check your internet connection.'),
               );
-            },
+            } else {
+              return MasonryGridView.builder(
+                scrollDirection: Axis.horizontal,
+                gridDelegate:
+                    const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 130,
+                    child: categoryAnimation
+                        ? Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 30,
+                                backgroundImage: CachedNetworkImageProvider(
+                                    data[index].image),
+                              ),
+                              const Gap(5),
+                              Text(
+                                data[index].title,
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+                            ],
+                          )
+                        : SlideInLeft(
+                            duration: const Duration(milliseconds: 500),
+                            delay: Duration(milliseconds: 50 * index),
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 30,
+                                  backgroundImage: CachedNetworkImageProvider(
+                                      data[index].image),
+                                ),
+                                const Gap(5),
+                                Text(
+                                  data[index].title,
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                  );
+                },
+              );
+            }
+          },
+          error: (error, stack) => Center(
+            child: Text('Error : $error'),
           ),
-          error: (error, stack) => const Center(
-            child: Text('Error'),
-          ),
-          loading: () => Shimmer.fromColors(
-            baseColor: Colors.grey[200]!,
-            highlightColor: Colors.grey[100]!,
+          loading: () => Skeletonizer(
+            enabled: false,
             child: MasonryGridView.builder(
               scrollDirection: Axis.horizontal,
               gridDelegate:

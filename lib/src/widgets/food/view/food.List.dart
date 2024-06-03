@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/model/food.model.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../controller/foodQuantity.controller.dart';
 import '../../../utils/helper/foodsBottomSheet.dart';
 
-class FoodScreenListWidget extends StatelessWidget {
+class FoodScreenListWidget extends ConsumerWidget {
   const FoodScreenListWidget({
     super.key,
     required this.height,
     required this.width,
-    required this.food, // Receive the food object here
+    required this.food,
   });
 
   final double height;
   final double width;
-  final Foods food; // Define the food object here
+  final Foods food;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final foodQuantityNotifier = ref.read(foodQuantityProvider.notifier);
+    final foodQuantity = ref.watch(foodQuantityProvider);
+    final foodWithQuantity = foodQuantity.firstWhere(
+      (f) => f.id == food.id,
+      orElse: () => food,
+    );
+    final quantity = foodWithQuantity.quantity;
+
     return Container(
       height: height,
       width: width,
-      margin: const EdgeInsets.only(
-        // vertical: 8,
-        top: 10,
-        left: 10,
-        right: 10,
-        bottom: 10,
-      ),
+      margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -45,7 +49,7 @@ class FoodScreenListWidget extends StatelessWidget {
       child: Column(
         children: [
           Flexible(
-            flex: 8,
+            flex: 11,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,7 +61,7 @@ class FoodScreenListWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          food.title, // Access 'title' property
+                          food.title,
                           style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
@@ -65,7 +69,7 @@ class FoodScreenListWidget extends StatelessWidget {
                         ),
                         const Gap(4),
                         Text(
-                          '₹${food.price}', // Access 'price' property
+                          '₹${food.price}',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[700],
@@ -79,14 +83,14 @@ class FoodScreenListWidget extends StatelessWidget {
                               size: 13,
                             ),
                             Text(
-                              '${food.rating}', // Access 'rating' property
+                              '${food.rating}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.green[600],
                               ),
                             ),
                             Text(
-                              '(${food.ratingCount})', // Access 'rating' property
+                              '(${food.ratingCount})',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.green[600],
@@ -97,8 +101,9 @@ class FoodScreenListWidget extends StatelessWidget {
                         const Gap(4),
                         Expanded(
                           child: Text(
-                            food.description, // Access 'description' property
-                            maxLines: 3,
+                            food.description,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -125,7 +130,7 @@ class FoodScreenListWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         image: DecorationImage(
                           image: NetworkImage(
-                            food.image, // Access 'image' property
+                            food.image,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -137,14 +142,15 @@ class FoodScreenListWidget extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 2,
+            flex: 4,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   Expanded(
                     child: Container(
-                      height: 30,
+                      padding: const EdgeInsets.all(2),
+                      height: height * 0.04,
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: Colors.grey.withOpacity(0.5),
@@ -158,8 +164,7 @@ class FoodScreenListWidget extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.orangeAccent,
                             fontSize: 15,
-                            fontFamily:
-                                GoogleFonts.robotoCondensed().fontFamily,
+                            fontFamily: GoogleFonts.robotoCondensed().fontFamily,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -168,33 +173,73 @@ class FoodScreenListWidget extends StatelessWidget {
                   ),
                   const Gap(20),
                   Expanded(
-                    child: Container(
-                      height: 30,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.5),
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'ADD',
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 15,
-                            fontFamily:
-                                GoogleFonts.robotoCondensed().fontFamily,
-                            fontWeight: FontWeight.bold,
+                    child: quantity == 0
+                        ? GestureDetector(
+                            onTap: () {
+                              foodQuantityNotifier.incrementQty(food.id);
+                            },
+                            child: Container(
+                              height: 30,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(0.5),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'ADD',
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 15,
+                                    fontFamily: GoogleFonts.robotoCondensed().fontFamily,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            height: 30,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                              color: const Color.fromARGB(255, 255, 255, 255),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    foodQuantityNotifier.decreaseQty(food.id);
+                                  },
+                                  child: const Icon(Icons.remove),
+                                ),
+                                Text(
+                                  '$quantity',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    foodQuantityNotifier.incrementQty(food.id);
+                                  },
+                                  child: const Icon(Icons.add),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
