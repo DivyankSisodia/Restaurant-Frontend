@@ -16,26 +16,10 @@ class DisplayFoodsWidget extends ConsumerStatefulWidget {
 }
 
 class _DisplayFoodsWidgetState extends ConsumerState<DisplayFoodsWidget> {
-  bool _isInitialized = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_isInitialized) {
-      _initializeFoodList();
-      _isInitialized = true;
-    }
-  }
-
-  void _initializeFoodList() async {
-    final foodList = await ref.read(foodListProvider.future);
-    ref.read(foodQuantityProvider.notifier).setFoods(foodList);
-  }
 
   @override
   Widget build(BuildContext context) {
     final foodList = ref.watch(foodListProvider);
-    ref.watch(foodQuantityProvider);
 
     return foodList.when(
       data: (foodList) {

@@ -1,35 +1,41 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../model/cart.model.dart';
 import '../model/food.model.dart';
 
-class FoodQuantityNotifier extends StateNotifier<List<Foods>> {
-  FoodQuantityNotifier() : super([]);
+class CartState extends StateNotifier<List<CartItem>> {
+  CartState() : super([]);
 
-  void setFoods(List<Foods> foods) {
-    state = foods;
-  }
-
-  void incrementQty(String foodId) {
+  void addToCart(Foods product) {
     state = [
-      for (final food in state)
-        if (food.id == foodId)
-          food.copyWith(quantity: food.quantity + 1)
+      for (final item in state)
+        if (item.product.id == product.id)
+          CartItem(product: item.product, quantity: item.quantity + 1)
         else
-          food,
+          item,
+      if (state.every((item) => item.product.id != product.id))
+        CartItem(product: product, quantity: 1),
     ];
   }
 
-  void decreaseQty(String foodId) {
+  void removeFromCart(Foods product) {
     state = [
-      for (final food in state)
-        if (food.id == foodId)
-          food.copyWith(quantity: food.quantity > 0 ? food.quantity - 1 : 0)
-        else
-          food,
+      for (final item in state)
+        if (item.product.id == product.id && item.quantity > 1)
+          CartItem(product: item.product, quantity: item.quantity - 1)
+        else if (item.product.id != product.id)
+          item,
     ];
+  }
+
+  void deleteFromCart(Foods product) {
+    state = state.where((item) => item.product.id != product.id).toList();
+  }
+
+  void clearCart() {
+    state = [];
   }
 }
 
-final foodQuantityProvider =
-    StateNotifierProvider<FoodQuantityNotifier, List<Foods>>(
-  (ref) => FoodQuantityNotifier(),
-);
+final cartProvider = StateNotifierProvider<CartState, List<CartItem>>((ref) {
+  return CartState();
+});

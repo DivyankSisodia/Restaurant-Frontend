@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/bottom_navbar.dart';
-import 'package:food_delivery/src/views/home.screen.dart';
-import 'package:food_delivery/src/widgets/food/view/food.searchBar.widget.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/favoriteList.controller.dart';
 import '../widgets/common/dot.separator.widget.dart';
@@ -184,15 +181,3 @@ class LikedRestaurantsScreen extends ConsumerWidget {
     );
   }
 }
-
-// ListTile(
-//                   title: Text(restaurant.title),
-//                   subtitle: Text(restaurant.address),
-//                   trailing: IconButton(
-//                       onPressed: () {
-//                         ref
-//                             .read(restListProvider.notifier)
-//                             .removeRestaurant(restaurant.id);
-//                       },
-//                       icon: const Icon(Icons.delete)),
-//                 );

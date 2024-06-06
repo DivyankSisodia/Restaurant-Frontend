@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
@@ -22,7 +20,7 @@ class Foods {
     required this.image,
     required this.rating,
     required this.ratingCount,
-    this.quantity = 0,
+    required this.quantity,
   });
 
   factory Foods.fromMap(Map<String, dynamic> map) {
@@ -34,7 +32,7 @@ class Foods {
       image: map['image'] as String,
       rating: (map['rating'] as num).toDouble(), // Parse rating as double
       ratingCount: map['ratingCount'] as int, // Parse ratingCount as int
-      quantity: map['quantity'] as int? ?? 0, // Parse quantity or default to 1
+      quantity: map['quantity'] != null ? map['quantity'] as int : 1, // Provide default value for quantity
     );
   }
 

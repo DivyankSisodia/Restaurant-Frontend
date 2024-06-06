@@ -1,6 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/views/cart.screen.dart';
 import 'package:food_delivery/src/views/foods.screen.dart';
@@ -8,7 +7,6 @@ import 'package:food_delivery/src/views/sign.screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'views/favorite.screen.dart';
 import 'views/home.screen.dart';
 import 'views/profile.screen.dart';
 

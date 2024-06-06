@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/model/food.model.dart';
@@ -5,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../controller/foodQuantity.controller.dart';
+import '../../../model/cart.model.dart';
 import '../../../utils/helper/foodsBottomSheet.dart';
 
 class FoodScreenListWidget extends ConsumerWidget {
@@ -21,13 +23,8 @@ class FoodScreenListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final foodQuantityNotifier = ref.read(foodQuantityProvider.notifier);
-    final foodQuantity = ref.watch(foodQuantityProvider);
-    final foodWithQuantity = foodQuantity.firstWhere(
-      (f) => f.id == food.id,
-      orElse: () => food,
-    );
-    final quantity = foodWithQuantity.quantity;
+    final cartItems = ref.watch(cartProvider);
+    final cartItem = cartItems.firstWhere((item) => item.product.id == food.id, orElse: () => CartItem(product: food, quantity: 0));
 
     return Container(
       height: height,
@@ -120,19 +117,21 @@ class FoodScreenListWidget extends ConsumerWidget {
                     onTap: () {
                       bottomSheet(context);
                     },
-                    child: Container(
+                    child: SizedBox(
                       height: height * 0.19,
                       width: width * 0.38,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.5),
-                        ),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            food.image,
-                          ),
+                        child: CachedNetworkImage(
+                          imageUrl: food.image,
                           fit: BoxFit.cover,
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ),
@@ -164,7 +163,8 @@ class FoodScreenListWidget extends ConsumerWidget {
                           style: TextStyle(
                             color: Colors.orangeAccent,
                             fontSize: 15,
-                            fontFamily: GoogleFonts.robotoCondensed().fontFamily,
+                            fontFamily:
+                                GoogleFonts.robotoCondensed().fontFamily,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -173,10 +173,10 @@ class FoodScreenListWidget extends ConsumerWidget {
                   ),
                   const Gap(20),
                   Expanded(
-                    child: quantity == 0
+                    child: cartItem.quantity == 0
                         ? GestureDetector(
                             onTap: () {
-                              foodQuantityNotifier.incrementQty(food.id);
+                              ref.read(cartProvider.notifier).addToCart(food);
                             },
                             child: Container(
                               height: 30,
@@ -193,7 +193,8 @@ class FoodScreenListWidget extends ConsumerWidget {
                                   style: TextStyle(
                                     color: Colors.green,
                                     fontSize: 15,
-                                    fontFamily: GoogleFonts.robotoCondensed().fontFamily,
+                                    fontFamily: GoogleFonts.robotoCondensed()
+                                        .fontFamily,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -214,12 +215,12 @@ class FoodScreenListWidget extends ConsumerWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    foodQuantityNotifier.decreaseQty(food.id);
+                                    ref.read(cartProvider.notifier).removeFromCart(food);
                                   },
                                   child: const Icon(Icons.remove),
                                 ),
                                 Text(
-                                  '$quantity',
+                                  '${cartItem.quantity}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 15,
@@ -228,7 +229,7 @@ class FoodScreenListWidget extends ConsumerWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    foodQuantityNotifier.incrementQty(food.id);
+                                    ref.read(cartProvider.notifier).addToCart(food);
                                   },
                                   child: const Icon(Icons.add),
                                 ),
