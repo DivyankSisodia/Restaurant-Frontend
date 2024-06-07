@@ -18,10 +18,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SearchedFoodHistoryAdapter());
   Hive.registerAdapter(FavRestaurantModelAdapter());
-  Hive.registerAdapter(FoodCategoryAdapter()); // Register the FoodCategoryAdapter
+  Hive.registerAdapter(FoodCategoryAdapter()); 
   await Hive.openBox<FavRestaurantModel>('favoriteRestaurantBox');
   await Hive.openBox<SearchedFoodHistory>('searchedFoodBox');
-  await Hive.openBox<FoodCategory>('foodCategoryBox'); // Open the box with FoodCategory type
+  await Hive.openBox<FoodCategory>('foodCategoryBox'); 
   await Hive.openBox('user_info');
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.manual,
@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint('Token: $token');
+    debugPrint('Token: ${widget.token}');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Your App',

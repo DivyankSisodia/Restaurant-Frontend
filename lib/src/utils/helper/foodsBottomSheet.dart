@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/model/food.model.dart';
@@ -9,9 +7,9 @@ import 'package:iconsax/iconsax.dart';
 
 class FoodsBottomSheetWidget extends StatelessWidget {
   const FoodsBottomSheetWidget({
-    super.key,
+    Key? key,
     required this.food,
-  });
+  }) : super(key: key);
 
   final Foods food;
 
@@ -53,10 +51,13 @@ class FoodsBottomSheetWidget extends StatelessWidget {
                           borderRadius: const BorderRadius.all(
                             Radius.circular(10),
                           ),
-                          child: CachedNetworkImage(
-                            width: width,
-                            imageUrl: food.image,
-                            fit: BoxFit.fitWidth,
+                          child: Hero(
+                            tag: food.id,
+                            child: CachedNetworkImage(
+                              width: width,
+                              imageUrl: food.image,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                       ),

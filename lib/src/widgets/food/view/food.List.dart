@@ -11,11 +11,11 @@ import '../../../utils/helper/foodsBottomSheet.dart';
 
 class FoodScreenListWidget extends ConsumerWidget {
   const FoodScreenListWidget({
-    super.key,
+    Key? key,
     required this.height,
     required this.width,
     required this.food,
-  });
+  }) : super(key: key);
 
   final double height;
   final double width;
@@ -120,17 +120,20 @@ class FoodScreenListWidget extends ConsumerWidget {
                     child: SizedBox(
                       height: height * 0.19,
                       width: width * 0.38,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: CachedNetworkImage(
-                          imageUrl: food.image,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.error,
-                            color: Colors.red,
+                      child: Hero(
+                        tag: food.id,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl: food.image,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                       ),

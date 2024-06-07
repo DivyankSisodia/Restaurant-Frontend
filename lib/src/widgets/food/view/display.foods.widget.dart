@@ -16,7 +16,6 @@ class DisplayFoodsWidget extends ConsumerStatefulWidget {
 }
 
 class _DisplayFoodsWidgetState extends ConsumerState<DisplayFoodsWidget> {
-
   @override
   Widget build(BuildContext context) {
     final foodList = ref.watch(foodListProvider);
