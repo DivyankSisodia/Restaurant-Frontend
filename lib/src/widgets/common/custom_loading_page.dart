@@ -22,18 +22,19 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   void initState() {
     super.initState();
     // Start a timer to show "Hello World" after 5 seconds
-    shortDurationTimer = Timer(const Duration(seconds: 5), () {
+    shortDurationTimer = Timer(const Duration(seconds: 3), () {
       if (mounted) {
         setState(() {
           showShortDurationText = true;
         });
       }
     });
-    // Start another timer to show "Welcome World" after 10 seconds
-    longDurationTimer = Timer(const Duration(seconds: 10), () {
+    // Start another timer to show "Welcome World" after 10 seconßs
+    longDurationTimer = Timer(const Duration(seconds: 8), () {
       if (mounted) {
         setState(() {
           showLongDurationText = true;
+          showShortDurationText = false;
         });
       }
     });
@@ -69,27 +70,31 @@ class _LoadingWidgetState extends State<LoadingWidget> {
             const Text('Your Patience is Appreciated!'),
             const SizedBox(height: 20),
             if (showShortDurationText) // Show "Hello World" if the flag is true
-              Text(
-                'Kindly Wait...',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.greenAccent,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1.0,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  'Kindly Wait...',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.amberAccent.shade700,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.0,
+                  ),
                 ),
               ),
-            if (!showShortDurationText) // Show "Loading..." if the flag is false
-              const Text('Loading...'),
             if (showLongDurationText) // Show "Welcome World" if the flag is true
-              Text(
-                'Sorry for the delay! Our servers are busy. Please wait...',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.greenAccent,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1.0,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  'Sorry for the delay! Our servers are busy. Please wait...',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.amberAccent.shade700,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.0,
+                  ),
                 ),
               ),
           ],

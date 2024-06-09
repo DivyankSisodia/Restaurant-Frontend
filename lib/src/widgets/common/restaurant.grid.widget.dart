@@ -27,72 +27,40 @@ class RestaurantGridWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final restuarantAnimation = ref.watch(animationStateProvider);
     double height = MediaQuery.of(context).size.height;
-    return restuarantAnimation
-        ? Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 10,
-                  offset: const Offset(1, 1),
-                ),
-              ],
+    return SlideInRight(
+      delay: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 400),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 10,
+              offset: const Offset(1, 1),
             ),
-            child: Column(
+          ],
+        ),
+        child: Column(
+          children: [
+            Stack(
               children: [
-                Stack(
-                  children: [
-                    RestaurantImageWidget(height: height, image: image),
-                    const LinearGradientContainerWidget(),
-                    LikeAndShareIconsWidget(
-                      restaurant: restaurant,
-                    ),
-                  ],
+                RestaurantImageWidget(height: height, image: image),
+                const LinearGradientContainerWidget(),
+                LikeAndShareIconsWidget(
+                  restaurant: restaurant,
                 ),
-                HomeScreenRestaurantTexts(title: title, rating: rating),
-                const DottedLineWidget(),
-                const RestaurantDiscountTextWidget(),
               ],
             ),
-          )
-        : SlideInRight(
-            delay: const Duration(milliseconds: 200),
-            duration: const Duration(milliseconds: 400),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 10,
-                    offset: const Offset(1, 1),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      RestaurantImageWidget(height: height, image: image),
-                      const LinearGradientContainerWidget(),
-                      LikeAndShareIconsWidget(
-                        restaurant: restaurant,
-                      ),
-                    ],
-                  ),
-                  HomeScreenRestaurantTexts(title: title, rating: rating),
-                  const DottedLineWidget(),
-                  const RestaurantDiscountTextWidget(),
-                ],
-              ),
-            ),
-          );
+            HomeScreenRestaurantTexts(title: title, rating: rating),
+            const DottedLineWidget(),
+            const RestaurantDiscountTextWidget(),
+          ],
+        ),
+      ),
+    );
   }
 }

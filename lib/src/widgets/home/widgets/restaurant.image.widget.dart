@@ -22,7 +22,9 @@ class RestaurantImageWidget extends StatelessWidget {
           topRight: Radius.circular(15),
         ),
         image: DecorationImage(
-          image: CachedNetworkImageProvider(image),
+          image: CachedNetworkImageProvider(
+            image,
+          ),
           fit: BoxFit.cover,
         ),
       ),
