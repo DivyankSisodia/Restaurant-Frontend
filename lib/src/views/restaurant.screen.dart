@@ -51,8 +51,10 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    String shortAddress = AddressHelper.getShortAddress(widget.restaurant.address);
-    String remainingAddress = AddressHelper.getRemainingAddress(widget.restaurant.address);
+    String shortAddress =
+        AddressHelper.getShortAddress(widget.restaurant.address);
+    String remainingAddress =
+        AddressHelper.getRemainingAddress(widget.restaurant.address);
 
     return Scaffold(
       body: CustomScrollView(
@@ -71,13 +73,23 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
           const MenuHeadingText(),
           buildSearchBar(height),
           const SliverToBoxAdapter(
-            child: Gap(10),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Gap(10),
+            ),
           ),
           const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(left: 3.0, bottom: 25),
-              child: HeadingRow(
-                title: 'Popular Dishes',
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 3.0, bottom: 25),
+                child: HeadingRow(
+                  title: 'Popular Dishes',
+                ),
               ),
             ),
           ),
@@ -91,7 +103,7 @@ class _FoodScreenWidgetState extends State<FoodScreenWidget> {
     return SliverAppBar(
       floating: true,
       automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
           height: height * 0.08,

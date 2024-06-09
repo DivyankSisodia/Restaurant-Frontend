@@ -1,20 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/model/food.model.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 
-class FoodsBottomSheetWidget extends StatelessWidget {
+import '../../controller/foodQuantity.controller.dart';
+import '../../model/cart.model.dart';
+
+class FoodsBottomSheetWidget extends ConsumerWidget {
   const FoodsBottomSheetWidget({
-    Key? key,
+    super.key,
     required this.food,
-  }) : super(key: key);
+  });
 
   final Foods food;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cartItems = ref.watch(cartProvider);
+    final cartItem = cartItems.firstWhere((item) => item.product.id == food.id,
+        orElse: () => CartItem(product: food, quantity: 0));
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
@@ -165,29 +172,81 @@ class FoodsBottomSheetWidget extends StatelessWidget {
                     const Gap(15),
                     Expanded(
                       flex: 3,
-                      child: Container(
-                        height: height * 0.04,
-                        width: 20,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.grey.withOpacity(0.7),
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'ADD',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 15,
-                              fontFamily:
-                                  GoogleFonts.robotoCondensed().fontFamily,
-                              fontWeight: FontWeight.bold,
+                      child: cartItem.quantity == 0
+                          ? GestureDetector(
+                              onTap: () {
+                                ref.read(cartProvider.notifier).addToCart(food);
+                              },
+                              child: Container(
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.grey.withOpacity(0.5),
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'ADD',
+                                    style: TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 15,
+                                      fontFamily: GoogleFonts.robotoCondensed()
+                                          .fontFamily,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(
+                              height: 30,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(0.5),
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      ref
+                                          .read(cartProvider.notifier)
+                                          .removeFromCart(food);
+                                    },
+                                    child: const Icon(
+                                      Icons.remove,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${cartItem.quantity}',
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      ref
+                                          .read(cartProvider.notifier)
+                                          .addToCart(food);
+                                    },
+                                    child: const Icon(
+                                      Icons.add,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 ),

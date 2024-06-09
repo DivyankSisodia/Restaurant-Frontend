@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +25,8 @@ class FoodScreenListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartItems = ref.watch(cartProvider);
-    final cartItem = cartItems.firstWhere((item) => item.product.id == food.id, orElse: () => CartItem(product: food, quantity: 0));
+    final cartItem = cartItems.firstWhere((item) => item.product.id == food.id,
+        orElse: () => CartItem(product: food, quantity: 0));
 
     return Container(
       height: height,
@@ -150,25 +152,46 @@ class FoodScreenListWidget extends ConsumerWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(2),
-                      height: height * 0.04,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.5),
+                    child: GestureDetector(
+                      onTap: () {
+                        final snackBar = SnackBar(
+                          /// need to set following properties for best effect of awesome_snackbar_content
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            color: Colors.amber.shade700,
+                            title: 'On Snap!',
+                            message:
+                                'This is an example error message that will be shown in the body of snackbar!',
+                            contentType: ContentType.warning,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        height: height * 0.04,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey.withOpacity(0.5),
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                          color: const Color.fromARGB(255, 255, 255, 255),
                         ),
-                        borderRadius: BorderRadius.circular(8),
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'ADD TO FAVORITE',
-                          style: TextStyle(
-                            color: Colors.orangeAccent,
-                            fontSize: 15,
-                            fontFamily:
-                                GoogleFonts.robotoCondensed().fontFamily,
-                            fontWeight: FontWeight.bold,
+                        child: Center(
+                          child: Text(
+                            'ADD TO FAVORITE',
+                            style: TextStyle(
+                              color: Colors.orangeAccent,
+                              fontSize: 15,
+                              fontFamily:
+                                  GoogleFonts.robotoCondensed().fontFamily,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -218,23 +241,33 @@ class FoodScreenListWidget extends ConsumerWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    ref.read(cartProvider.notifier).removeFromCart(food);
+                                    ref
+                                        .read(cartProvider.notifier)
+                                        .removeFromCart(food);
                                   },
-                                  child: const Icon(Icons.remove),
+                                  child: const Icon(
+                                    Icons.remove,
+                                    color: Colors.green,
+                                  ),
                                 ),
                                 Text(
                                   '${cartItem.quantity}',
                                   style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
+                                    color: Colors.green,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    ref.read(cartProvider.notifier).addToCart(food);
+                                    ref
+                                        .read(cartProvider.notifier)
+                                        .addToCart(food);
                                   },
-                                  child: const Icon(Icons.add),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.green,
+                                  ),
                                 ),
                               ],
                             ),

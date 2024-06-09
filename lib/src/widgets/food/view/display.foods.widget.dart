@@ -4,7 +4,6 @@ import 'package:food_delivery/src/widgets/food/view/food.List.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import '../../../controller/food.controller.dart';
-import '../../../controller/foodQuantity.controller.dart';
 
 class DisplayFoodsWidget extends ConsumerStatefulWidget {
   const DisplayFoodsWidget({

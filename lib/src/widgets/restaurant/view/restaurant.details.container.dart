@@ -23,6 +23,7 @@ class RestaurantDetailsHeaderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      backgroundColor: Colors.white,
       automaticallyImplyLeading: false,
       expandedHeight: height * 0.45,
       flexibleSpace: FlexibleSpaceBar(

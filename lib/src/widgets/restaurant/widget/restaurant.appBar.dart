@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/model/Hive/favorite_restaurant.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../../controller/favoriteList.controller.dart';
 
 class RestaurantAppBar extends ConsumerWidget implements PreferredSizeWidget {
@@ -16,6 +17,8 @@ class RestaurantAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final likedRestaurants = ref.watch(restListProvider);
+    final isLiked = likedRestaurants.any((fav) => fav.id == restaurant?.id);
     return AppBar(
       backgroundColor: Colors.grey[300],
       leading: IconButton(
@@ -27,15 +30,25 @@ class RestaurantAppBar extends ConsumerWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: Icon(
-            Icons.favorite_outline_sharp,
-            color: Colors.grey[700],
+            isLiked ? Iconsax.heart5 : Icons.favorite_border,
+            color: isLiked ? Colors.redAccent.shade400 : Colors.white,
             size: 30,
           ),
           onPressed: () {
-            if (restaurant != null) {
-              ref.read(restListProvider.notifier).addRestaurant(restaurant!);
+            if (isLiked) {
+              ref
+                  .read(restListProvider.notifier)
+                  .removeRestaurant(restaurant!.id);
             } else {
-              print('Restaurant is null');
+              final favRestaurant = FavRestaurantModel(
+                id: restaurant!.id,
+                title: restaurant!.title,
+                imageUrl: restaurant!.imageUrl,
+                rating: restaurant!.rating,
+                time: restaurant!.time,
+                address: restaurant!.address,
+              );
+              ref.read(restListProvider.notifier).addRestaurant(favRestaurant);
             }
           },
         ),

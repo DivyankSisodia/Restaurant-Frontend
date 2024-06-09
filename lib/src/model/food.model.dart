@@ -11,6 +11,7 @@ class Foods {
   final double rating; // Changed type to double
   final int ratingCount; // Changed type to int
   final int quantity; // Added quantity field
+  final String restaurantName;
 
   const Foods({
     required this.id,
@@ -21,6 +22,7 @@ class Foods {
     required this.rating,
     required this.ratingCount,
     required this.quantity,
+    required this.restaurantName,
   });
 
   factory Foods.fromMap(Map<String, dynamic> map) {
@@ -32,7 +34,10 @@ class Foods {
       image: map['image'] as String,
       rating: (map['rating'] as num).toDouble(), // Parse rating as double
       ratingCount: map['ratingCount'] as int, // Parse ratingCount as int
-      quantity: map['quantity'] != null ? map['quantity'] as int : 1, // Provide default value for quantity
+      quantity: map['quantity'] != null
+          ? map['quantity'] as int
+          : 1, // Provide default value for quantity
+      restaurantName: map['restaurant']['title'] as String,
     );
   }
 
@@ -46,6 +51,7 @@ class Foods {
       'rating': rating,
       'ratingCount': ratingCount,
       'quantity': quantity,
+      'restaurant': restaurantName
     };
   }
 
@@ -63,6 +69,7 @@ class Foods {
     double? rating,
     int? ratingCount,
     int? quantity,
+    String? restaurantName,
   }) {
     return Foods(
       id: id ?? this.id,
@@ -73,6 +80,7 @@ class Foods {
       rating: rating ?? this.rating,
       ratingCount: ratingCount ?? this.ratingCount,
       quantity: quantity ?? this.quantity,
+      restaurantName: restaurantName ?? this.restaurantName,
     );
   }
 }
