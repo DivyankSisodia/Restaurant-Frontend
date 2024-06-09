@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'category.model.g.dart';
+part 'Hive/category.model.g.dart';
 
 @immutable
 @HiveType(typeId: 2)

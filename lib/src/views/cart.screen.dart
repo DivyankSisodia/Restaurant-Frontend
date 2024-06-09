@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controller/foodQuantity.controller.dart';
-
 import '../widgets/cart/view/cartAppBar.widget.dart';
 import '../widgets/cart/view/cartItem.widget.dart';
 import '../widgets/cart/view/emptyCart.widget.dart';
 import '../widgets/cart/view/totalBill.widget.dart';
 
 class CartScreen extends ConsumerWidget {
-  const CartScreen({super.key});
+  const CartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,8 +28,11 @@ class CartScreen extends ConsumerWidget {
 
     double gstAndRestaurantCharges = 40.0;
 
-    double total =
-        totalPrice + platformFee + gstAndRestaurantCharges - instantDiscount;
+    double total = totalPrice +
+        deliveryCharges +
+        platformFee +
+        gstAndRestaurantCharges -
+        instantDiscount;
 
     return Container(
       color: Colors.white,
@@ -83,4 +85,3 @@ class CartScreen extends ConsumerWidget {
     );
   }
 }
-

@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:icon_craft/icon_craft.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../../views/favorite.screen.dart';
+import '../../common/heading_text.dart';
 
 class FoodAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const FoodAppBarWidget({
     super.key,
+    this.token,
   });
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  final String? token;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.grey[100],
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_rounded),
         onPressed: () {
@@ -19,25 +26,46 @@ class FoodAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(
-            Icons.favorite_outline_sharp,
-            color: Colors.grey[500],
-            size: 30,
+          icon: IconCraft(
+            Icon(
+              Iconsax.heart5,
+              color: Colors.amber.shade400,
+              size: 30.0,
+            ),
+            const Icon(
+              Iconsax.shopping_bag5,
+              color: Colors.green,
+            ),
+            alignment: Alignment.topRight,
+            decoration: const IconDecoration(
+              border: IconBorder(
+                color: Colors.white,
+                width: 2.0,
+              ),
+            ),
           ),
           onPressed: () {
             // Navigate to the cart screen
+            Navigator.push(
+              context,
+              PageTransition(
+                duration: const Duration(milliseconds: 600),
+                reverseDuration: const Duration(milliseconds: 400),
+                child: LikedRestaurantsScreen(
+                  token: token,
+                ),
+                type: PageTransitionType.rightToLeftWithFade,
+              ),
+            );
           },
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 14.0),
-          child: Image.asset(
-            'assets/icons/upload.png',
-            height: 30,
-            width: 50,
-            color: Colors.grey[500],
-          ),
-        ),
       ],
+      backgroundColor: Colors.white,
+      title: const Center(
+        child: HeadingText(
+          title: 'Hunt for your next meal...',
+        ),
+      ),
     );
   }
 }

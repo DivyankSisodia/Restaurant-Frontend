@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:food_delivery/src/model/Hive/favorite_restaurant.dart';
+import 'package:food_delivery/src/model/favorite_restaurant.dart';
 
 // Provider to manage the list of favorite restaurants
 final restListProvider = StateNotifierProvider<RestListNotifier, List<FavRestaurantModel>>((ref) {

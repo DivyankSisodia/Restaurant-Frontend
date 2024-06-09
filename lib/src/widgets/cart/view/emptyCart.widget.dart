@@ -55,10 +55,12 @@ class EmptyCartWidget extends StatelessWidget {
                 color: Colors.amber.shade700,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Start Shopping',
                   style: TextStyle(
+                    letterSpacing: 1,
+                    fontFamily: GoogleFonts.dmSans().fontFamily,
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

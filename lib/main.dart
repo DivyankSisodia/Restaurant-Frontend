@@ -6,8 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'src/model/Hive/favorite_restaurant.dart';
-import 'src/model/Hive/searched_food_history.dart';
+import 'src/model/favorite_restaurant.dart';
+import 'src/model/searched_food_history.dart';
 import 'src/model/category.model.dart';
 
 void main() async {

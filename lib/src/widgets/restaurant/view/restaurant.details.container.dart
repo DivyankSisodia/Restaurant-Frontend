@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../model/Hive/favorite_restaurant.dart';
+import '../../../model/favorite_restaurant.dart';
 import '../../../model/restaurant.model.dart';
 import '../widget/restaurant.appBar.dart';
 import '../widget/restaurantInfo.container.dart';

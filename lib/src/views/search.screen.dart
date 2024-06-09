@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../controller/search_food.controller.dart';
-import '../model/Hive/searched_food_history.dart';
+import '../model/searched_food_history.dart';
 import '../widgets/common/custom_loading_page.dart';
 import '../widgets/common/heading_text.dart';
 import '../widgets/food/view/food.searchBar.widget.dart';
 import '../widgets/search/food_cards.dart';
 import 'package:collection/collection.dart';
+
+import '../widgets/search/restuarantItemWidget.dart';
 
 class FoodSearchScreen extends ConsumerStatefulWidget {
   const FoodSearchScreen({super.key});
@@ -238,58 +240,6 @@ class TextFieldWithIcon extends StatelessWidget {
                 letterSpacing: 1.4),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class RestaurantItemWidget extends StatelessWidget {
-  final String restaurantName;
-
-  const RestaurantItemWidget({
-    super.key,
-    required this.restaurantName,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 5,
-              spreadRadius: 2,
-              offset: Offset(0, 3),
-            ),
-          ],
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Restaurant',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                restaurantName,
-                style: const TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

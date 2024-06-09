@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_delivery/src/model/Hive/favorite_restaurant.dart';
+import 'package:food_delivery/src/model/favorite_restaurant.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../controller/favoriteList.controller.dart';
 

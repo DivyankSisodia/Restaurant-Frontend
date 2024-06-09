@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'searched_food_history.dart';
+part of '../searched_food_history.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

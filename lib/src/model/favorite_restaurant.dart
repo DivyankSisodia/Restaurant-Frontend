@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'favorite_restaurant.g.dart';
+part 'Hive/favorite_restaurant.g.dart';
 
 @immutable
 @HiveType(typeId: 1)

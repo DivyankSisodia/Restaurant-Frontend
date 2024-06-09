@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'favorite_restaurant.dart';
+part of '../favorite_restaurant.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:food_delivery/src/controller/animtaion.controller.dart';
 import 'package:food_delivery/src/model/restaurant.model.dart';
 import 'package:food_delivery/src/widgets/common/dottedLine.widget.dart';
 import 'package:food_delivery/src/widgets/common/likeANDshare.widget.dart';
