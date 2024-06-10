@@ -40,7 +40,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             token: _token,
           ),
           const CartScreen(),
-          const ProfileScreen(),
+          ProfileScreen(),
         ];
       } else {
         _screens = [

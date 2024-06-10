@@ -153,15 +153,19 @@ class FoodsBottomSheetWidget extends ConsumerWidget {
                               ],
                             ),
                             const Gap(2),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3),
-                              child: Text(
-                                food.description,
-                                // maxLines: 5,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[700],
-                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Text(
+                                  food.description,
+                                  // maxLines: 5,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
+                                  ),
                                 ),
                               ),
                             ),

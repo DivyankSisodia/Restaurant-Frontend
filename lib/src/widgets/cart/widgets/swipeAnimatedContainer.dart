@@ -37,7 +37,7 @@ class _AnimationSwipeState extends State<AnimationSwipe> {
             context,
             PageTransition(
               type: PageTransitionType.fade,
-              child: const ProfileScreen(),
+              child: ProfileScreen(),
             ),
           );
           setState(() {

@@ -67,13 +67,13 @@ class LoginController extends ChangeNotifier {
       "password": passwordController.text,
     };
 
-    debugPrint('resBody $resBody');
+    // debugPrint('resBody $resBody');
 
     String baseUrl = dotenv.env['API_BASE_URL'] ?? '';
     String loginEndPoint = 'auth/login';
 
     String finalEndPoint = baseUrl + loginEndPoint;
-    debugPrint('finalEndPoint: $finalEndPoint');
+    // debugPrint('finalEndPoint: $finalEndPoint');
 
     try {
       debugPrint('Connecting...');
@@ -85,16 +85,22 @@ class LoginController extends ChangeNotifier {
         },
       );
 
-      debugPrint('Response: ${response.body}');
+      // debugPrint('Response: ${response.body}');
 
       if (response.statusCode == 200) {
         var jsonRes = jsonDecode(response.body);
         if (jsonRes['success'] != null && jsonRes['success'] == true) {
           var myToken = jsonRes['token'] ?? '';
           pref.setString('token', myToken);
-          debugPrint('TokenInfo: $myToken');
+          // debugPrint('TokenInfo: $myToken');
 
           var user = jsonRes['user'];
+          // debugPrint('User Info: $user');
+
+          var userId = user['_id'];
+          box.put('userId', userId);
+          
+          debugPrint('User ID: $userId');
 
           var userAddress = user['address'];
           box.put('address', userAddress);
@@ -113,6 +119,9 @@ class LoginController extends ChangeNotifier {
               child: const CustomBottomNavBar(),
             ),
           );
+
+          // Print the user ID after successful login
+          printUserId();
         } else {
           var errorMessage = jsonRes['message'] ?? 'Unknown error';
           debugPrint('Login failed: $errorMessage');
@@ -126,6 +135,15 @@ class LoginController extends ChangeNotifier {
       // Toggle isLoading back to false when login process ends
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  void printUserId() {
+    var userId = box.get('userId');
+    if (userId != null) {
+      debugPrint('Retrieved User ID from Hive: $userId');
+    } else {
+      debugPrint('User ID not found in Hive');
     }
   }
 

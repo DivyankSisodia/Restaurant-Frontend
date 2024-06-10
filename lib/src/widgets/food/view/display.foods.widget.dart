@@ -19,6 +19,9 @@ class _DisplayFoodsWidgetState extends ConsumerState<DisplayFoodsWidget> {
   Widget build(BuildContext context) {
     final foodList = ref.watch(foodListProvider);
 
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
+
     return foodList.when(
       data: (foodList) {
         return SliverGrid(
@@ -46,12 +49,12 @@ class _DisplayFoodsWidgetState extends ConsumerState<DisplayFoodsWidget> {
           ),
         );
       },
-      loading: () => const SliverToBoxAdapter(
+      loading: () => SliverToBoxAdapter(
         child: Center(
           child: SizedBox(
-            height: 100,
-            width: 100,
-            child: LoadingIndicator(
+            height: h * 0.55,
+            width: w * 1,
+            child: const LoadingIndicator(
               indicatorType: Indicator.ballTrianglePathColoredFilled,
               colors: [
                 Colors.orangeAccent,

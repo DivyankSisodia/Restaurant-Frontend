@@ -12,11 +12,11 @@ import '../../../utils/helper/foodsBottomSheet.dart';
 
 class FoodScreenListWidget extends ConsumerWidget {
   const FoodScreenListWidget({
-    Key? key,
+    super.key,
     required this.height,
     required this.width,
     required this.food,
-  }) : super(key: key);
+  });
 
   final double height;
   final double width;
@@ -61,6 +61,7 @@ class FoodScreenListWidget extends ConsumerWidget {
                       children: [
                         Text(
                           food.title,
+                          maxLines: 2,
                           style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
