@@ -5,8 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/foodQuantity.controller.dart';
-import '../controller/order.controller.dart';
-import '../controller/token.controller.dart';
+import '../services/fetchOrder.service.dart';
 import '../widgets/cart/view/cartAppBar.widget.dart';
 import '../widgets/cart/view/cartItem.widget.dart';
 import '../widgets/cart/view/emptyCart.widget.dart';
@@ -95,6 +94,9 @@ class CartScreen extends ConsumerWidget {
                             : const EmptyCartWidget(),
                       ),
                     ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 70),
+                    ),
                   ],
                 ),
               ),
@@ -104,8 +106,11 @@ class CartScreen extends ConsumerWidget {
                   left: 0,
                   right: 0,
                   child: Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 12,
+                    ),
+                    color: Colors.transparent,
                     child: ElevatedButton(
                       onPressed: () async {
                         print('order kia h');
@@ -117,11 +122,15 @@ class CartScreen extends ConsumerWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ProfileScreen()),
+                              builder: (context) => const ProfileScreen(),
+                            ),
                           );
+                          // Force refresh orders after creating a new one
+                          ref.read(orderProvider.notifier).fetchOrders();
                         }
                       },
                       style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         textStyle: const TextStyle(fontSize: 16),
                       ),

@@ -112,7 +112,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.person,
+                      Iconsax.user,
                     ),
                     label: 'Profile',
                   ),

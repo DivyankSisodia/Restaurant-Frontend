@@ -54,7 +54,6 @@ class LikedRestaurantsScreen extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final restaurant = likedRestaurants[index];
                 return Container(
-                  height: height * 0.35,
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -85,92 +84,106 @@ class LikedRestaurantsScreen extends ConsumerWidget {
                           ),
                         ),
                         const Gap(5),
-                        Text(
-                          restaurant.title,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Text(
+                            restaurant.title,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        Text(
-                          restaurant.address,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Text(
+                            restaurant.address,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                         const Gap(5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.star,
-                                          color: Colors.white),
-                                      Text(
-                                        restaurant.rating.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.15,
+                                    padding: const EdgeInsets.all(2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        const Icon(Icons.star,
+                                            color: Colors.white),
+                                        Text(
+                                          restaurant.rating.toString(),
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                const Gap(8),
-                                const DotSeparatorWidget(),
-                                const Gap(8),
-                                Text(
-                                  restaurant.time,
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
+                                  const Gap(8),
+                                  const DotSeparatorWidget(),
+                                  const Gap(8),
+                                  Text(
+                                    restaurant.time,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20.0),
-                              child: Container(
-                                height: 20,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: Center(
-                                  child: Material(
-                                    child: InkWell(
-                                      onDoubleTap: () {},
-                                      onTap: () {
-                                        ref
-                                            .read(restListProvider.notifier)
-                                            .removeRestaurant(restaurant.id);
-                                      },
-                                      child: Icon(
-                                        Iconsax.save_remove,
-                                        color: Colors.redAccent.shade400,
-                                        size: 30,
+                                ],
+                              ),
+                              const Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 20.0),
+                                child: Container(
+                                  height: 20,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  child: Center(
+                                    child: Material(
+                                      child: InkWell(
+                                        onDoubleTap: () {},
+                                        onTap: () {
+                                          ref
+                                              .read(restListProvider.notifier)
+                                              .removeRestaurant(restaurant.id);
+                                        },
+                                        child: Icon(
+                                          Iconsax.save_remove,
+                                          color: Colors.redAccent.shade400,
+                                          size: 30,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),

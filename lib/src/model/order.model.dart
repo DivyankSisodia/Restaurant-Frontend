@@ -54,17 +54,19 @@ class OrderItem {
 
 class Order {
   final List<OrderItem> orders;
+  final int currentPage;
+  final int totalPages;
 
-  Order({required this.orders});
+  Order({required this.orders, required this.currentPage, required this.totalPages});
 
   factory Order.fromJson(Map<String, dynamic> json) {
-    final ordersList = json['orders'] as List?;
-    if (ordersList == null) {
-      throw Exception('No orders found');
-    }
+    var list = json['orders'] as List;
+    List<OrderItem> ordersList = list.map((i) => OrderItem.fromJson(i)).toList();
 
     return Order(
-      orders: ordersList.map((orderJson) => OrderItem.fromJson(orderJson)).toList(),
+      orders: ordersList,
+      currentPage: json['currentPage'],
+      totalPages: json['totalPages'],
     );
   }
 }

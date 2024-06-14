@@ -71,7 +71,7 @@ class TotalBillWidget extends StatelessWidget {
                   const Gap(10),
                   DeliveryFeeWidget(deliveryCharges: deliveryCharges),
                   const Gap(6),
-                  DeliveryPolicyText(),
+                  const DeliveryPolicyText(),
                   const Gap(8),
                   const DottedLineWidget(),
                   InstantDiscountWidget(instantDiscount: instantDiscount),

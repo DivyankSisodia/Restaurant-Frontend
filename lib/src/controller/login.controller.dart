@@ -2,6 +2,7 @@
 
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -99,7 +100,7 @@ class LoginController extends ChangeNotifier {
 
           var userId = user['_id'];
           box.put('userId', userId);
-          
+
           debugPrint('User ID: $userId');
 
           var userAddress = user['address'];
@@ -128,9 +129,29 @@ class LoginController extends ChangeNotifier {
         }
       } else {
         debugPrint('Failed to login, status code: ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Failed to login',
+              message: 'Kindly check your credentials and try again.',
+              contentType: ContentType.failure,
+            ),
+          ),
+        );
       }
     } catch (error) {
       debugPrint('Error connecting: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Failed to login',
+            message: 'Kindly check your credentials and try again.',
+            contentType: ContentType.failure,
+          ),
+        ),
+      );
     } finally {
       // Toggle isLoading back to false when login process ends
       _isLoading = false;

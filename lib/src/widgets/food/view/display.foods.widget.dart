@@ -52,8 +52,8 @@ class _DisplayFoodsWidgetState extends ConsumerState<DisplayFoodsWidget> {
       loading: () => SliverToBoxAdapter(
         child: Center(
           child: SizedBox(
-            height: h * 0.55,
-            width: w * 1,
+            height: h * 0.2,
+            width: w * 0.5,
             child: const LoadingIndicator(
               indicatorType: Indicator.ballTrianglePathColoredFilled,
               colors: [
