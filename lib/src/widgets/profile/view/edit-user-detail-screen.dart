@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/src/utils/styles/text_style.dart';
@@ -26,11 +28,19 @@ class _EditUserDetailDialogState extends ConsumerState<EditUserDetailDialog> {
     // Fetch user details and populate the fields
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(getUserProvider.future).then((userDetails) {
-        _userNameController.text = userDetails.userName ?? '';
-        _phoneController.text = userDetails.phone ?? '';
-        _emailController.text = userDetails.email ?? '';
+        _userNameController.text = userDetails.userName;
+        _phoneController.text = userDetails.phone;
+        _emailController.text = userDetails.email;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _userNameController.dispose();
   }
 
   @override

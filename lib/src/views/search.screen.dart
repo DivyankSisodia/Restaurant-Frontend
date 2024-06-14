@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -92,6 +94,39 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                 },
               ),
               SliverToBoxAdapter(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap: () {
+                      _searchedFoodBox.clear();
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 16.0),
+                      padding: const EdgeInsets.all(8.0),
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color:
+                            const Color.fromARGB(255, 3, 2, 2).withOpacity(0.8),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Delete All',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: GoogleFonts.dmSans().fontFamily,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
                 child: DecoratedBox(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -131,17 +166,18 @@ class _FoodSearchScreenState extends ConsumerState<FoodSearchScreen> {
                 )
               else if (foodController.searchController.text.isEmpty &&
                   foodController.filteredFoodData.isEmpty)
-                const SliverFillRemaining(
+                SliverFillRemaining(
                   child: DecoratedBox(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     child: Center(
                       child: Text(
-                        'Popular Cuisines',
+                        'Search your favorite food...',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          fontFamily: GoogleFonts.dmSans().fontFamily,
                         ),
                       ),
                     ),

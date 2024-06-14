@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/views/cart.screen.dart';
 import 'package:food_delivery/src/views/foods.screen.dart';
-import 'package:food_delivery/src/views/sign.screen.dart';
+import 'package:food_delivery/src/views/splash.screen.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,11 +40,11 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             token: _token,
           ),
           const CartScreen(),
-          ProfileScreen(),
+          const ProfileScreen(),
         ];
       } else {
         _screens = [
-          const SignUpScreen(),
+          const SplashScreenPage(),
           Container(), // Add an empty container for each bottom navigation bar item
           Container(),
           Container(),

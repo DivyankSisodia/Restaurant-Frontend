@@ -64,9 +64,9 @@ class CartScreen extends ConsumerWidget {
                     SliverToBoxAdapter(
                       child: Container(
                         color:
-                            Colors.grey[200], // Background color for the list
+                            Colors.grey[200], 
                         child: const SizedBox(
-                            height: 10), // Placeholder for spacing
+                            height: 10), 
                       ),
                     ),
                     SliverList(
@@ -106,37 +106,45 @@ class CartScreen extends ConsumerWidget {
                   left: 0,
                   right: 0,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 12,
-                    ),
-                    color: Colors.transparent,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        print('order kia h');
-                        // Call the placeOrder function with userId
-                        final success = await placeOrder(context, ref, userId);
-
-                        if (success) {
-                          // Navigate to the OrderHistoryScreen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProfileScreen(),
-                            ),
-                          );
-                          // Force refresh orders after creating a new one
-                          ref.read(orderProvider.notifier).fetchOrders();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        textStyle: const TextStyle(fontSize: 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12,
                       ),
-                      child: const Text('Place Order'),
-                    ),
-                  ),
+                      color: Colors.transparent,
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.green.shade400,
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: TextButton(
+                          onPressed: () async {
+                            print('order kia h');
+                            // Call the placeOrder function with userId
+                            final success =
+                                await placeOrder(context, ref, userId);
+
+                            if (success) {
+                              // Navigate to the OrderHistoryScreen
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ProfileScreen(),
+                                ),
+                              );
+                              // Force refresh orders after creating a new one
+                              ref.read(orderProvider.notifier).fetchOrders();
+                            }
+                          },
+                          child: const Text(
+                            'Place Order',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      )),
                 ),
             ],
           ),

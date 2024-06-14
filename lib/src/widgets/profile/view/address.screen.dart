@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/utils/styles/text_style.dart';
 import 'package:food_delivery/src/views/login.screen.dart';
@@ -13,7 +15,6 @@ class AddressPasswordDialog extends StatefulWidget {
 }
 
 class _AddressPasswordDialogState extends State<AddressPasswordDialog> {
-  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _existingPasswordController =
       TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();

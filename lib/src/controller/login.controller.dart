@@ -116,7 +116,7 @@ class LoginController extends ChangeNotifier {
             PageTransition(
               duration: const Duration(milliseconds: 1200),
               childCurrent: const LoginScreen(),
-              type: PageTransitionType.leftToRightJoined,
+              type: PageTransitionType.fade,
               child: const CustomBottomNavBar(),
             ),
           );

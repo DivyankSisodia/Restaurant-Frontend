@@ -69,12 +69,9 @@ class UserProfileScreen extends ConsumerWidget {
           ),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) {
-          print('Error: $error');
-          Center(
-            child: Text('Failed to load user details: $error'),
-          );
-        },
+        error: (error, stack) => Center(
+          child: Text('Failed to load user details: $error'),
+        ),
       ),
     );
   }

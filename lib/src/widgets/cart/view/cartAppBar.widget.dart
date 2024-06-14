@@ -51,7 +51,6 @@ class CartAppBarWidget extends ConsumerWidget {
                     ref.read(cartProvider.notifier).clearCart();
                     final snackBar = SnackBar(
                       /// need to set following properties for best effect of awesome_snackbar_content
-                      elevation: 1,
                       behavior: SnackBarBehavior.fixed,
                       backgroundColor: Colors.transparent,
                       content: AwesomeSnackbarContent(
