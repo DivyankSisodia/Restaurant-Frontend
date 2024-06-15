@@ -16,8 +16,6 @@ A full-featured food delivery app built with Flutter and Riverpod for the fronte
 
 [Watch the demo video](https://firebasestorage.googleapis.com/v0/b/testing-32a29.appspot.com/o/testing%2FSimulator%20Screen%20Recording%20-%20iPhone%2015%20-%202024-06-14%20at%2020.28.16.mp4?alt=media&token=8aa6211e-aeb2-4a37-ad58-2cfeae0ffbf2)
 
-
-
 ## Features
 
 ### Frontend
@@ -42,9 +40,40 @@ A full-featured food delivery app built with Flutter and Riverpod for the fronte
 - [Node.js](https://nodejs.org/en/download/)
 - [MongoDB](https://docs.mongodb.com/manual/installation/)
 
+### Frontend
+
+1. Navigate to the frontend directory
+
+2. Install dependencies:
+
+   ```sh
+   flutter pub get
+
+3. Run the app:
+
+   ```sh
+   flutter run
+
 ### Backend
 
 1. Clone the repository
    ```sh
    git clone https://github.com/your-username/food-app.git
    cd food-app/backend
+
+2. Install dependencies:
+
+   ```sh  
+   npm install
+
+3. Create a .env file with the following content:
+
+   ```sh
+   PORT=5000
+   MONGODB_URI=mongodb://localhost:27017/foodapp
+   JWT_SECRET=your_jwt_secret
+
+4. Start the backend server:
+   
+   ```sh
+   npm start
