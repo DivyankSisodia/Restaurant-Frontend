@@ -14,9 +14,8 @@ A full-featured food delivery app built with Flutter and Riverpod for the fronte
 
 ## Demo
 
-Click the image below to watch the demo video:
+[Watch the demo video](https://firebasestorage.googleapis.com/v0/b/testing-32a29.appspot.com/o/testing%2FSimulator%20Screen%20Recording%20-%20iPhone%2015%20-%202024-06-14%20at%2020.28.16.mp4?alt=media&token=8aa6211e-aeb2-4a37-ad58-2cfeae0ffbf2)
 
-[![Watch the demo video](https://link-to-your-screenshot.png)](https://firebasestorage.googleapis.com/v0/b/testing-32a29.appspot.com/o/testing%2FSimulator%20Screen%20Recording%20-%20iPhone%2015%20-%202024-06-14%20at%2020.28.16.mp4?alt=media&token=8aa6211e-aeb2-4a37-ad58-2cfeae0ffbf2)
 
 
 ## Features
